@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	<!-- <http auto-config="true"></http> -->
+	<!-- 不需要进行认证的资源，3.0之后才改为这样配置 -->
+	<!-- <http security="none" pattern="/**/index" /> -->
+ 	<http security="none" pattern="/**/*login.html" />
+	<http security="none" pattern="/**/*.jpg" />
+	<http security="none" pattern="/**/*.png" />
+	<http security="none" pattern="/**/*.gif" />
+	<http security="none" pattern="/**/*.css" />
+	<http security="none" pattern="/**/*.js" />
+	<http security="none" pattern="/*.ico" />
+	<http security="none" pattern="/*.jpg" />
+	<!-- 提供系统自动化运维系统调用接口，不需要登录认证 -->
+	<http pattern="/rev/message" security="none" />
+	<!-- <http pattermcitil" security="none" /> -->
+	
+	<!--设置匹配普通用户url，登录页面和所拥有的权限，以及引用userAuthManager验证管理 -->
+ 	<http pattern="/**" use-expressions="true">
+		<form-login login-processing-url="/module/j_spring_security_check" login-page="/" 
+		default-target-url="/module/login/userCheckSuccess" authentication-failure-handler-ref="loginFailureHandler"
+		always-use-default-target="true"/>
+		<!-- <logout logout-url="/module/j_spring_security_logout" logout-success-url="/" /> -->
+		<!-- 自定义退出过滤器 -->
+		<custom-filter ref="userLogoutFilter" position="LOGOUT_FILTER" />
+		
+		
+		<!-- session管理，invalid-session-url指定使用已经超时的sessionId进行请求需要重定向的页面 -->
+		<session-management invalid-session-url="/sessionTimeout">
+            <concurrency-control max-sessions="1" expired-url="/sessionTimeout"/>
+        </session-management>
+		
+		<!-- <intercept-url pattern="/module/**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/admin/department/**" access="hasRole('ROLE_ADMIN_DEPARTMENT')" />
+		<intercept-url pattern="/admin/processdefinition/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/roleManage/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/permission/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/manageUserAccount/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/activiti/**" access="hasRole('ROLE_ADMIN')" /> -->
+		<intercept-url pattern="/itil/**" access="hasRole('ROLE_DBACCESS')" />
+		<intercept-url pattern="/monitor/**" access="hasRole('ROLE_MC_VIEW')" />
+		<intercept-url pattern="/log/api/**" access="hasRole('ROLE_MC_VIEW')" />
+		<custom-filter ref="customFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />  
+	</http>
+	
+
+	<global-method-security>
+	   	<protect-pointcut expression="execution(* com.ucsmy.mc.module.admin.controller.AdminDepartmentController.save*(..))" access="ROLE_ADMIN"/>
+	</global-method-security>
+	
+	<!--普通用户管理用户验证管理bean -->
+	<authentication-manager  alias="authenticationManager">
+		<authentication-provider user-service-ref="commonUserDetailServiceImpl">
+			<password-encoder hash="md5"></password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+	
+	<!-- Ldap认证 -->
+	<!--
+	<ldap-server url="ldap://172.17.20.16:389/DC=wangjin,DC=local" manager-dn="yunweiad@wangjin.local" manager-password="Ucc)@)#117" />
+	<authentication-manager>
+		<ldap-authentication-provider user-search-filter="(sAMAccountName={0})" user-context-mapper-ref="ldapUserDetailsContextMapper" />
+	</authentication-manager> 
+	-->
+	
+	<!-- 
+	<beans:bean id="ldapContextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
+		<beans:constructor-arg value="ldap://172.17.20.16:389/DC=wangjin,DC=local"/>
+		<beans:property name="userDn" value="yunweiad@wangjin.local"/>
+		<beans:property name="password" value="Ucc)@)#117"/>
+	</beans:bean>
+	<beans:bean id="ldapAuthProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">  
+        <beans:constructor-arg ref="ldapBindAuthenticator" />
+        <beans:property name="userDetailsContextMapper" ref="ldapUserDetailsContextMapper"></beans:property>
+    </beans:bean>
+    <beans:bean id="ldapBindAuthenticator" class="org.springframework.security.ldap.authentication.BindAuthenticator">  
+        <beans:constructor-arg ref="ldapContextSource" />
+    	<beans:property name="userSearch" ref="ldapUserSearch" />
+    </beans:bean>
+    <beans:bean id="ldapUserSearch" class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">  
+        <beans:constructor-arg value="" />
+        <beans:constructor-arg value="(sAMAccountName={0})" />  
+        <beans:constructor-arg ref="ldapContextSource"/>
+    </beans:bean>
+    <authentication-manager>
+    	<authentication-provider ref="ldapAuthProvider"></authentication-provider>
+    </authentication-manager>
+	 -->
+	
+	<!-- 后台管理用户退出的过滤器配置 -->
+	<beans:bean id="adminLogoutFilter" class="com.ucsmy.mc.util.filter.UserLogoutFilter">
+       <!-- 处理退出的虚拟url -->
+       <beans:property name="filterProcessesUrl" value="/admin/logout" />
+       <!-- 退出处理成功后的默认显示url -->
+       <beans:constructor-arg index="0" value="/" />
+       <beans:constructor-arg index="1">
+             <!-- 退出成功后的handler列表 -->
+          <beans:array>
+                <!-- 加入了开发人员自定义的退出成功处理 -->
+                <beans:bean id="adminLogoutSuccessHandler" class="com.ucsmy.mc.util.filter.UserLogoutHandler" />
+          </beans:array>
+      </beans:constructor-arg>
+   </beans:bean>
+   
+  <!-- 普通用户退出的过滤器配置 -->
+   <beans:bean id="userLogoutFilter" class="com.ucsmy.mc.util.filter.UserLogoutFilter">
+       <!-- 处理退出的虚拟url -->
+       <beans:property name="filterProcessesUrl" value="/module/logout" />
+       <!-- 退出处理成功后的默认显示url -->
+       <beans:constructor-arg index="0" value="/" />
+       <beans:constructor-arg index="1">
+             <!-- 退出成功后的handler列表 -->
+          <beans:array>
+                <!-- 加入了开发人员自定义的退出成功处理 -->
+                <beans:bean id="userLogoutSuccessHandler" class="com.ucsmy.mc.util.filter.UserLogoutHandler" />
+          </beans:array>
+      </beans:constructor-arg>
+   </beans:bean>
+</beans:beans>

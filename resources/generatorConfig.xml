@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <!-- 数据库驱动包位置 -->
+  <classPathEntry location="C:/Users/ucs_mawenzhong/.m2/repository/mysql/mysql-connector-java/5.1.29/mysql-connector-java-5.1.29.jar" />
+  <context id="context1" >
+    <!-- 去除自动生成的注释 -->
+    <commentGenerator>
+        <property name="suppressAllComments" value="true" />
+    </commentGenerator>
+    <!-- 数据库链接URL、用户名、密码 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://10.1.21.188:3306/mc" userId="root" password="123456" />
+     <!-- 生成模型的包名和位置 -->
+    <javaModelGenerator targetPackage="com.ucsmy.mc.module.monitor.entity" targetProject="src/main/java"  />
+    <!-- 生成的映射文件包名和位置 -->
+    <sqlMapGenerator targetPackage="com.ucsmy.mc.module.monitor.mapping" targetProject="src/main/java" />
+    <!-- 生成DAO的包名和位置 -->
+    <javaClientGenerator targetPackage="com.ucsmy.mc.module.monitor.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+
+    <table tableName="zb_his_data"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" ></table>
+  </context>
+</generatorConfiguration>
