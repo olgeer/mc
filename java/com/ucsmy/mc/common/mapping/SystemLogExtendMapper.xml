@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.SystemLogExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.SystemLogExtend" >
+    <id column="sle_id" property="sleId" jdbcType="VARCHAR" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="class_description" property="classDescription" jdbcType="VARCHAR" />
+    <result column="method_name" property="methodName" jdbcType="VARCHAR" />
+    <result column="method_description" property="methodDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sle_id, class_name, class_description, method_name, method_description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_log_extend
+    where sle_id = #{sleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from system_log_extend
+    where sle_id = #{sleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.SystemLogExtend" >
+    insert into system_log_extend (sle_id, class_name, class_description, 
+      method_name, method_description)
+    values (#{sleId,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, #{classDescription,jdbcType=VARCHAR}, 
+      #{methodName,jdbcType=VARCHAR}, #{methodDescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.SystemLogExtend" >
+    insert into system_log_extend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sleId != null" >
+        sle_id,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="classDescription != null" >
+        class_description,
+      </if>
+      <if test="methodName != null" >
+        method_name,
+      </if>
+      <if test="methodDescription != null" >
+        method_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sleId != null" >
+        #{sleId,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classDescription != null" >
+        #{classDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null" >
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodDescription != null" >
+        #{methodDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.SystemLogExtend" >
+    update system_log_extend
+    <set >
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classDescription != null" >
+        class_description = #{classDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null" >
+        method_name = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodDescription != null" >
+        method_description = #{methodDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sle_id = #{sleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.SystemLogExtend" >
+    update system_log_extend
+    set class_name = #{className,jdbcType=VARCHAR},
+      class_description = #{classDescription,jdbcType=VARCHAR},
+      method_name = #{methodName,jdbcType=VARCHAR},
+      method_description = #{methodDescription,jdbcType=VARCHAR}
+    where sle_id = #{sleId,jdbcType=VARCHAR}
+  </update>
+</mapper>

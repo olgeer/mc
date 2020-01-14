@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.LoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.LoginLog" >
+    <id column="login_log_lolo_id" property="loloId" jdbcType="INTEGER" />
+    <result column="login_log_lolo_type" property="loloType" jdbcType="TINYINT" />
+    <result column="login_log_lolo_ip" property="loloIp" jdbcType="VARCHAR" />
+    <result column="login_log_lolo_exception_code" property="loloExceptionCode" jdbcType="VARCHAR" />
+    <result column="login_log_lolo_exception_detail" property="loloExceptionDetail" jdbcType="VARCHAR" />
+    <result column="login_log_lolo_params" property="loloParams" jdbcType="VARCHAR" />
+    <result column="login_log_lolo_usro_id" property="loloUsroId" jdbcType="INTEGER" />
+    <result column="login_log_lolo_usro_name" property="loloUsroName" jdbcType="VARCHAR" />
+    <result column="login_log_lolo_role_name" property="loloRoleName" jdbcType="VARCHAR" />
+    <result column="login_log_lolo_login_date" property="loloLoginDate" jdbcType="TIMESTAMP" />
+    <result column="login_log_lolo_logout_date" property="loloLogoutDate" jdbcType="TIMESTAMP" />
+    <result column="login_log_lolo_own" property="loloOwn" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    login_log.lolo_id as login_log_lolo_id, login_log.lolo_type as login_log_lolo_type, 
+    login_log.lolo_ip as login_log_lolo_ip, login_log.lolo_exception_code as login_log_lolo_exception_code, 
+    login_log.lolo_exception_detail as login_log_lolo_exception_detail, login_log.lolo_params as login_log_lolo_params, 
+    login_log.lolo_usro_id as login_log_lolo_usro_id, login_log.lolo_usro_name as login_log_lolo_usro_name, 
+    login_log.lolo_role_name as login_log_lolo_role_name, login_log.lolo_login_date as login_log_lolo_login_date, 
+    login_log.lolo_logout_date as login_log_lolo_logout_date, login_log.lolo_own as login_log_lolo_own
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from login_log login_log
+    where login_log.lolo_id = #{loloId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from login_log login_log
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from login_log
+    where lolo_id = #{loloId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.LoginLog" >
+    <selectKey resultType="java.lang.Integer" keyProperty="loloId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into login_log (lolo_type, lolo_ip, lolo_exception_code, 
+      lolo_exception_detail, lolo_params, lolo_usro_id, 
+      lolo_usro_name, lolo_role_name, lolo_login_date, 
+      lolo_logout_date, lolo_own)
+    values (#{loloType,jdbcType=TINYINT}, #{loloIp,jdbcType=VARCHAR}, #{loloExceptionCode,jdbcType=VARCHAR}, 
+      #{loloExceptionDetail,jdbcType=VARCHAR}, #{loloParams,jdbcType=VARCHAR}, #{loloUsroId,jdbcType=INTEGER}, 
+      #{loloUsroName,jdbcType=VARCHAR}, #{loloRoleName,jdbcType=VARCHAR}, #{loloLoginDate,jdbcType=TIMESTAMP}, 
+      #{loloLogoutDate,jdbcType=TIMESTAMP}, #{loloOwn,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.LoginLog" >
+    <selectKey resultType="java.lang.Integer" keyProperty="loloId" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into login_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loloType != null" >
+        lolo_type,
+      </if>
+      <if test="loloIp != null" >
+        lolo_ip,
+      </if>
+      <if test="loloExceptionCode != null" >
+        lolo_exception_code,
+      </if>
+      <if test="loloExceptionDetail != null" >
+        lolo_exception_detail,
+      </if>
+      <if test="loloParams != null" >
+        lolo_params,
+      </if>
+      <if test="loloUsroId != null" >
+        lolo_usro_id,
+      </if>
+      <if test="loloUsroName != null" >
+        lolo_usro_name,
+      </if>
+      <if test="loloRoleName != null" >
+        lolo_role_name,
+      </if>
+      <if test="loloLoginDate != null" >
+        lolo_login_date,
+      </if>
+      <if test="loloLogoutDate != null" >
+        lolo_logout_date,
+      </if>
+      <if test="loloOwn != null" >
+        lolo_own,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loloType != null" >
+        #{loloType,jdbcType=TINYINT},
+      </if>
+      <if test="loloIp != null" >
+        #{loloIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loloExceptionCode != null" >
+        #{loloExceptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loloExceptionDetail != null" >
+        #{loloExceptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="loloParams != null" >
+        #{loloParams,jdbcType=VARCHAR},
+      </if>
+      <if test="loloUsroId != null" >
+        #{loloUsroId,jdbcType=INTEGER},
+      </if>
+      <if test="loloUsroName != null" >
+        #{loloUsroName,jdbcType=VARCHAR},
+      </if>
+      <if test="loloRoleName != null" >
+        #{loloRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="loloLoginDate != null" >
+        #{loloLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loloLogoutDate != null" >
+        #{loloLogoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loloOwn != null" >
+        #{loloOwn,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.LoginLog" >
+    update login_log
+    <set >
+      <if test="loloType != null" >
+        lolo_type = #{loloType,jdbcType=TINYINT},
+      </if>
+      <if test="loloIp != null" >
+        lolo_ip = #{loloIp,jdbcType=VARCHAR},
+      </if>
+      <if test="loloExceptionCode != null" >
+        lolo_exception_code = #{loloExceptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loloExceptionDetail != null" >
+        lolo_exception_detail = #{loloExceptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="loloParams != null" >
+        lolo_params = #{loloParams,jdbcType=VARCHAR},
+      </if>
+      <if test="loloUsroId != null" >
+        lolo_usro_id = #{loloUsroId,jdbcType=INTEGER},
+      </if>
+      <if test="loloUsroName != null" >
+        lolo_usro_name = #{loloUsroName,jdbcType=VARCHAR},
+      </if>
+      <if test="loloRoleName != null" >
+        lolo_role_name = #{loloRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="loloLoginDate != null" >
+        lolo_login_date = #{loloLoginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loloLogoutDate != null" >
+        lolo_logout_date = #{loloLogoutDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loloOwn != null" >
+        lolo_own = #{loloOwn,jdbcType=TINYINT},
+      </if>
+    </set>
+    where lolo_id = #{loloId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.LoginLog" >
+    update login_log
+    set lolo_type = #{loloType,jdbcType=TINYINT},
+      lolo_ip = #{loloIp,jdbcType=VARCHAR},
+      lolo_exception_code = #{loloExceptionCode,jdbcType=VARCHAR},
+      lolo_exception_detail = #{loloExceptionDetail,jdbcType=VARCHAR},
+      lolo_params = #{loloParams,jdbcType=VARCHAR},
+      lolo_usro_id = #{loloUsroId,jdbcType=INTEGER},
+      lolo_usro_name = #{loloUsroName,jdbcType=VARCHAR},
+      lolo_role_name = #{loloRoleName,jdbcType=VARCHAR},
+      lolo_login_date = #{loloLoginDate,jdbcType=TIMESTAMP},
+      lolo_logout_date = #{loloLogoutDate,jdbcType=TIMESTAMP},
+      lolo_own = #{loloOwn,jdbcType=TINYINT}
+    where lolo_id = #{loloId,jdbcType=INTEGER}
+  </update>
+</mapper>

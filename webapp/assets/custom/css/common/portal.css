@@ -1,0 +1,102 @@
+/* CSS Document */
+/*css初始化  css reset*/
+body, div ,a ,dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, input, p, th, td { margin:0; padding:0; }
+body { font-size:12px; color:#3C3C3C; font-family:"宋体"; background:#fff; }
+img{ border:0; display:block;}
+ol, ul { list-style:none; }
+h1, h2, h3, h4, h5, h6{ font-size:100%;/* 12px*/ }
+em,i{ font-style:normal; }
+input, button, select, textarea { outline:none; border:none; _border:0;} 
+textarea { resize:none;/*设置textarea不可改变尺寸大小*/ }
+a { color: #3C3C3C; text-decoration:none; }
+a:hover { color:#d91414; text-decoration:none; }
+.clearfix:before,.clearfix:after{ content:"";display:table;/*转换为表格这个是cs3的属性*/}
+.clearfix:after{ clear:both;}
+.clearfix{ *zoom:1;}
+
+/*top_bannner 开始*/
+.top_banner{ width:1024px; height:226px; margin:0 auto; margin-bottom:6px;}
+/*top_bannner 结束*/
+
+/*top_img 开始*/
+.top_img{width:100%; height:100%; margin:0 auto; margin-bottom:6px; background:url(../../img/portal/banner.png) repeat-x;}
+/*top_img 结束*/
+
+/*nav 开始*/
+.nav{ width:1024px; height:35px; background:url(../../img/portal/top_nav.jpg) repeat-x; margin:0 auto 6px;}
+.nav ul li{ float:left; _display:inline; line-height:35px;}
+.nav ul li a{font-size:14px; color:#fff; margin:8px 28px; font-weight:bold;}
+.nav ul li a:hover{ color:#d91414;}
+.nav ul li.fst_li a{ color:#d91414;}
+/*nav 结束*/
+
+/*content 开始*/
+.content{  width:1024px; height:800px; margin:0 auto;}
+
+/*内容 类的共用 开始*/
+.title{height:29px; line-height:32px; border-bottom:1px solid #dddcdb;}
+.title .titleBar{ float:left; width:104px; height:29px; padding-left:30px; background:url(../../img/portal/titlenav.jpg) no-repeat; font-weight:bold; font-size:14px; color:#0b89d4;}
+.title .more{ float:right; color:#818181;}
+.title a:hover{ color:#d91414;}
+.newCon{ width:476px; _width:470px; float:left; padding:0px 10px;}
+.newCon li{margin-top:9px; padding-left:15px; height:20px; line-height:20px; background:url(../../img/portal/ico.jpg) no-repeat; background-position:left center; /* _height:0px; _line-height:20px;*/ }
+.newCon a{ float:left; width:300px; display:block; _display:inline; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+.newCon span{ float:right; display:block; margin-right:5px; _display:inline;}
+.asdfh{ float:right; color:#818181; }
+.con{padding:0 11px 0 8px; border:1px solid #dddcdb; background:url(../../img/portal/title.jpg) repeat-x;}
+
+/*内容 类的共用 结束*/
+
+.content .conBox1{ width:1024px; margin-bottom:6px; background:#fff;}
+.content .con01{ width:488px; height:250px; float:left;}
+.content .con02{ width:488px; height:250px; float:right; _display:inline; }
+
+.content .conBox2{ width:1024px; margin-bottom:6px; background:#fff;}
+.content .conBox2 .con03{ width:341px; height:222px; float:left; }
+.content .conBox2 .con03 .newCon{ width:328px; _width:320px;}
+.content .conBox2 .con03 .newCon a{ width:180px;}
+
+.content .conBox2 .con04{ width:635px; height:222px; float:right;  }
+.content .conBox2 .con04 .newCon{ width:620px; _width:610px; }
+.content .conBox2 .con04 .newCon a{ width:400px;}
+
+.content .conBox3{ width:1024px; height:481px; margin-bottom:6px; background:#fff;}
+.content .conBox3 .conBoxIn{ width:654px; height:481px; background:#fff; float:left;}
+.content .conBox3 .conBoxIn .con05{ width:635px; _width:633px; height:222px;  margin-bottom:6px; }
+.content .conBox3 .con05 .newCon{ width:620px; _width:600px;}
+.content .conBox3 .con05 .newCon a{ width:320px;}
+
+.content .conBox3 .conBoxIn .conBoxInner{  width:654px; height:250px; background:#fff;}
+.content .conBox3 .conBoxIn .conBoxInner .con06{  width:303px; height:250px; float:left;}
+.content .conBox3 .conBoxIn .conBoxInner .con06 .newCon{ width:290px;_width:280px; }
+.content .conBox3 .conBoxIn .conBoxInner .con06 .newCon a{ width:160px; }
+
+.content .conBox3 .conBoxIn .conBoxInner .con07{  width:303px; height:250px; float:right; }
+.content .conBox3 .conBoxIn .conBoxInner .con07 .newCon{ width:290px;_width:280px;}
+.content .conBox3 .conBoxIn .conBoxInner .con07 .newCon a{ width:160px;}
+
+.content .conBox3 .con08{ width:343px; _width:340px; height:481px; float:right; }
+.content .conBox3 .con08 .newCon{ width:330px; _width:326px;}
+.content .conBox3 .con08 .newCon a{ width:220px;}
+
+/*content 结束*/
+
+/*底部 结束*/
+
+/*详情页开始*/
+.newinfobox{  width:994px; padding:0 15px; background:url(../../img/portal/title.jpg) repeat-x; margin:0 auto; border:1px solid #dddcdb;}
+.bread{ height:35px; line-height:35px; font-size:12px; color:#818181; border-bottom:1px solid #e2e1df;}
+.bread a{ color:#818181; cursor:pointer;}
+.bread a:hover{ text-decoration:underline;}
+
+.newinfo{ padding:15px;}
+.newsTitle{ font-size:16px; line-height:220%; text-align:center; color:#088dd2;}
+.newsElse{ padding:7px 0; font-size:12px; text-align:center; border-bottom:1px dashed #909090;} 
+.newsElse span{ margin:0px 13px;}
+.newinfoCon p{ font-size:14px; line-height:22px; text-indent:36.5pt;}
+.newinfoCon img{ margin:18px auto; }
+.newinfoCon .textP{ margin-bottom:100px;}
+
+/*底部 开始*/
+.footer{  width:1024px; height:57px; margin:6px auto 0; border-top:1px solid #0b89d4;}
+.footer p{ line-height:57px; font-size:12px; color:#818181; text-align:center;}

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.SystemLogMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.SystemLog" >
+    <id column="sylo_id" property="syloId" jdbcType="VARCHAR" />
+    <result column="sylo_method_name" property="syloMethodName" jdbcType="VARCHAR" />
+    <result column="sylo_method_description" property="syloMethodDescription" jdbcType="VARCHAR" />
+    <result column="sylo_method_type" property="syloMethodType" jdbcType="VARCHAR" />
+    <result column="sylo_type" property="syloType" jdbcType="TINYINT" />
+    <result column="sylo_ip" property="syloIp" jdbcType="VARCHAR" />
+    <result column="sylo_exception_code" property="syloExceptionCode" jdbcType="VARCHAR" />
+    <result column="sylo_exception_detail" property="syloExceptionDetail" jdbcType="VARCHAR" />
+    <result column="sylo_params" property="syloParams" jdbcType="VARCHAR" />
+    <result column="sylo_usro_id" property="syloUsroId" jdbcType="VARCHAR" />
+    <result column="sylo_usro_name" property="syloUsroName" jdbcType="VARCHAR" />
+    <result column="sylo_role_name" property="syloRoleName" jdbcType="VARCHAR" />
+    <result column="sylo_create_date" property="syloCreateDate" jdbcType="TIMESTAMP" />
+    <result column="sylo_module_name" property="syloModuleName" jdbcType="VARCHAR" />
+    <result column="sylo_module_description" property="syloModuleDescription" jdbcType="VARCHAR" />
+    <result column="sylo_sql" property="syloSql" jdbcType="VARCHAR" />
+    <result column="sylo_own" property="syloOwn" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sylo_id, sylo_method_name, sylo_method_description, sylo_method_type, sylo_type, 
+    sylo_ip, sylo_exception_code, sylo_exception_detail, sylo_params, sylo_usro_id, sylo_usro_name, 
+    sylo_role_name, sylo_create_date, sylo_module_name, sylo_module_description, sylo_sql, 
+    sylo_own
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_log
+    where sylo_id = #{syloId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from system_log
+    where sylo_id = #{syloId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.SystemLog" >
+    insert ignore into system_log (sylo_id, sylo_method_name, sylo_method_description, 
+      sylo_method_type, sylo_type, sylo_ip, 
+      sylo_exception_code, sylo_exception_detail, 
+      sylo_params, sylo_usro_id, sylo_usro_name, 
+      sylo_role_name, sylo_create_date, sylo_module_name, 
+      sylo_module_description, sylo_sql, sylo_own
+      )
+    values (#{syloId,jdbcType=VARCHAR}, #{syloMethodName,jdbcType=VARCHAR}, #{syloMethodDescription,jdbcType=VARCHAR}, 
+      #{syloMethodType,jdbcType=VARCHAR}, #{syloType,jdbcType=TINYINT}, #{syloIp,jdbcType=VARCHAR}, 
+      #{syloExceptionCode,jdbcType=VARCHAR}, #{syloExceptionDetail,jdbcType=VARCHAR}, 
+      #{syloParams,jdbcType=VARCHAR}, #{syloUsroId,jdbcType=VARCHAR}, #{syloUsroName,jdbcType=VARCHAR}, 
+      #{syloRoleName,jdbcType=VARCHAR}, #{syloCreateDate,jdbcType=TIMESTAMP}, #{syloModuleName,jdbcType=VARCHAR}, 
+      #{syloModuleDescription,jdbcType=VARCHAR}, #{syloSql,jdbcType=VARCHAR}, #{syloOwn,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.SystemLog" >
+    insert into system_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="syloId != null" >
+        sylo_id,
+      </if>
+      <if test="syloMethodName != null" >
+        sylo_method_name,
+      </if>
+      <if test="syloMethodDescription != null" >
+        sylo_method_description,
+      </if>
+      <if test="syloMethodType != null" >
+        sylo_method_type,
+      </if>
+      <if test="syloType != null" >
+        sylo_type,
+      </if>
+      <if test="syloIp != null" >
+        sylo_ip,
+      </if>
+      <if test="syloExceptionCode != null" >
+        sylo_exception_code,
+      </if>
+      <if test="syloExceptionDetail != null" >
+        sylo_exception_detail,
+      </if>
+      <if test="syloParams != null" >
+        sylo_params,
+      </if>
+      <if test="syloUsroId != null" >
+        sylo_usro_id,
+      </if>
+      <if test="syloUsroName != null" >
+        sylo_usro_name,
+      </if>
+      <if test="syloRoleName != null" >
+        sylo_role_name,
+      </if>
+      <if test="syloCreateDate != null" >
+        sylo_create_date,
+      </if>
+      <if test="syloModuleName != null" >
+        sylo_module_name,
+      </if>
+      <if test="syloModuleDescription != null" >
+        sylo_module_description,
+      </if>
+      <if test="syloSql != null" >
+        sylo_sql,
+      </if>
+      <if test="syloOwn != null" >
+        sylo_own,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="syloId != null" >
+        #{syloId,jdbcType=VARCHAR},
+      </if>
+      <if test="syloMethodName != null" >
+        #{syloMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="syloMethodDescription != null" >
+        #{syloMethodDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="syloMethodType != null" >
+        #{syloMethodType,jdbcType=VARCHAR},
+      </if>
+      <if test="syloType != null" >
+        #{syloType,jdbcType=TINYINT},
+      </if>
+      <if test="syloIp != null" >
+        #{syloIp,jdbcType=VARCHAR},
+      </if>
+      <if test="syloExceptionCode != null" >
+        #{syloExceptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="syloExceptionDetail != null" >
+        #{syloExceptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="syloParams != null" >
+        #{syloParams,jdbcType=VARCHAR},
+      </if>
+      <if test="syloUsroId != null" >
+        #{syloUsroId,jdbcType=VARCHAR},
+      </if>
+      <if test="syloUsroName != null" >
+        #{syloUsroName,jdbcType=VARCHAR},
+      </if>
+      <if test="syloRoleName != null" >
+        #{syloRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="syloCreateDate != null" >
+        #{syloCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="syloModuleName != null" >
+        #{syloModuleName,jdbcType=VARCHAR},
+      </if>
+      <if test="syloModuleDescription != null" >
+        #{syloModuleDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="syloSql != null" >
+        #{syloSql,jdbcType=VARCHAR},
+      </if>
+      <if test="syloOwn != null" >
+        #{syloOwn,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.SystemLog" >
+    update system_log
+    <set >
+      <if test="syloMethodName != null" >
+        sylo_method_name = #{syloMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="syloMethodDescription != null" >
+        sylo_method_description = #{syloMethodDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="syloMethodType != null" >
+        sylo_method_type = #{syloMethodType,jdbcType=VARCHAR},
+      </if>
+      <if test="syloType != null" >
+        sylo_type = #{syloType,jdbcType=TINYINT},
+      </if>
+      <if test="syloIp != null" >
+        sylo_ip = #{syloIp,jdbcType=VARCHAR},
+      </if>
+      <if test="syloExceptionCode != null" >
+        sylo_exception_code = #{syloExceptionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="syloExceptionDetail != null" >
+        sylo_exception_detail = #{syloExceptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="syloParams != null" >
+        sylo_params = #{syloParams,jdbcType=VARCHAR},
+      </if>
+      <if test="syloUsroId != null" >
+        sylo_usro_id = #{syloUsroId,jdbcType=VARCHAR},
+      </if>
+      <if test="syloUsroName != null" >
+        sylo_usro_name = #{syloUsroName,jdbcType=VARCHAR},
+      </if>
+      <if test="syloRoleName != null" >
+        sylo_role_name = #{syloRoleName,jdbcType=VARCHAR},
+      </if>
+      <if test="syloCreateDate != null" >
+        sylo_create_date = #{syloCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="syloModuleName != null" >
+        sylo_module_name = #{syloModuleName,jdbcType=VARCHAR},
+      </if>
+      <if test="syloModuleDescription != null" >
+        sylo_module_description = #{syloModuleDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="syloSql != null" >
+        sylo_sql = #{syloSql,jdbcType=VARCHAR},
+      </if>
+      <if test="syloOwn != null" >
+        sylo_own = #{syloOwn,jdbcType=TINYINT},
+      </if>
+    </set>
+    where sylo_id = #{syloId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.SystemLog" >
+    update system_log
+    set sylo_method_name = #{syloMethodName,jdbcType=VARCHAR},
+      sylo_method_description = #{syloMethodDescription,jdbcType=VARCHAR},
+      sylo_method_type = #{syloMethodType,jdbcType=VARCHAR},
+      sylo_type = #{syloType,jdbcType=TINYINT},
+      sylo_ip = #{syloIp,jdbcType=VARCHAR},
+      sylo_exception_code = #{syloExceptionCode,jdbcType=VARCHAR},
+      sylo_exception_detail = #{syloExceptionDetail,jdbcType=VARCHAR},
+      sylo_params = #{syloParams,jdbcType=VARCHAR},
+      sylo_usro_id = #{syloUsroId,jdbcType=VARCHAR},
+      sylo_usro_name = #{syloUsroName,jdbcType=VARCHAR},
+      sylo_role_name = #{syloRoleName,jdbcType=VARCHAR},
+      sylo_create_date = #{syloCreateDate,jdbcType=TIMESTAMP},
+      sylo_module_name = #{syloModuleName,jdbcType=VARCHAR},
+      sylo_module_description = #{syloModuleDescription,jdbcType=VARCHAR},
+      sylo_sql = #{syloSql,jdbcType=VARCHAR},
+      sylo_own = #{syloOwn,jdbcType=TINYINT}
+    where sylo_id = #{syloId,jdbcType=VARCHAR}
+  </update>
+</mapper>

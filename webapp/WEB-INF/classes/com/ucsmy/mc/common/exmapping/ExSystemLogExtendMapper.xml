@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.exmapper.ExSystemLogExtendMapper" >
+ <select id="getAllSystemLogExtend" resultMap="com.ucsmy.mc.common.mapper.SystemLogExtendMapper.BaseResultMap" parameterType="java.util.Map">
+	SELECT 
+	<include refid="com.ucsmy.mc.common.mapper.SystemLogExtendMapper.Base_Column_List"/>
+	FROM system_log_extend
+ </select>
+ <select id="selectSystemLogExtendBYClassAndMethod" resultMap="com.ucsmy.mc.common.mapper.SystemLogExtendMapper.BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+		<include refid="com.ucsmy.mc.common.mapper.SystemLogExtendMapper.Base_Column_List"/>
+		FROM system_log_extend
+		where class_name= #{className,jdbcType=VARCHAR}
+		 AND method_name= #{methodName,jdbcType=VARCHAR}
+	</select>
+	<!-- 批量插入操作 -->
+	 <insert id ="bathInsertSystemLogExtend" parameterType="java.util.List" >
+             insert ignore into system_log_extend
+             (sle_id, class_name, class_description, method_name, method_description)
+             values
+             <foreach collection ="list" item="systemLogExtend" index="index" separator=",">
+               (
+                #{systemLogExtend.sleId,jdbcType=VARCHAR}, #{systemLogExtend.className,jdbcType=VARCHAR}, #{systemLogExtend.classDescription,jdbcType=VARCHAR}, 
+                #{systemLogExtend.methodName,jdbcType=VARCHAR}, #{systemLogExtend.methodDescription,jdbcType=VARCHAR}
+             )
+            </foreach >
+            
+     </insert >
+</mapper>

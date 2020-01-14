@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.message.mmapper.MessageMapper">
+
+    <select id="selectMessageList" resultType="java.util.Map">
+        select tb.*, ub.usba_name send_user_name, go.glob_detail_url
+        from tb_message_receive tb left join user_basic ub on tb.send_user_id = ub.usba_id
+        left join glob_obj go ON tb.relation_domain = go.glob_id 
+        where 1=1
+        <if test="title!=null">
+            and tb.title LIKE CONCAT(CONCAT('%', #{title,jdbcType=VARCHAR}),'%')
+        </if>
+
+        <if test="detail!=null">
+            and tb.detail LIKE CONCAT(CONCAT('%', #{detail,jdbcType=VARCHAR}),'%')
+        </if>
+        <if test="send_user_name != null">
+            and ub.usba_name LIKE CONCAT(CONCAT('%', #{send_user_name,jdbcType=VARCHAR}),'%')
+        </if>
+        <if test="sts!=null">
+            and tb.sts = #{sts,jdbcType=VARCHAR}
+        </if>
+        <if test="id!=null">
+            and tb.id = #{id,jdbcType=VARCHAR}
+        </if>
+        <if test="rev_user_id!=null">
+            and tb.rev_user_id = #{rev_user_id,jdbcType=VARCHAR}
+        </if>
+        <if test="send_time!=null">
+            and DATE_FORMAT(tb.send_time,'%Y-%m-%d') = #{send_time,jdbcType=VARCHAR}
+        </if>
+        
+        ORDER BY tb.send_time DESC
+    </select>
+	
+	
+    <!--最多只显示99+-->
+    <select id="countTodo" resultType="java.lang.Integer" parameterType="java.lang.String">
+	    select count(*) from tb_message_receive tb
+	    WHERE tb.rev_user_id =#{rev_user_id,jdbcType=CHAR} and tb.sts='1'
+	</select>
+
+
+    <!--右上角的消息通知，显示三条-->
+    <select id="selectTop3MessageList" resultType="java.util.HashMap" parameterType="java.lang.String">
+	    SELECT  *  FROM tb_message_receive tb
+	    WHERE tb.rev_user_id = #{rev_user_id,jdbcType=CHAR} and tb.sts='1'
+	    order by send_time desc
+	</select>
+	
+	
+    <!--通过权限ID找出所有用户-->
+    <!--where role_id-->
+    <!--in (#{role_id,jdbcType=CHAR})-->
+    <select id="selectUsersByRoles" resultType="java.util.HashMap" parameterType="map">
+      select usba_id from user_role
+      where
+
+        <if test="ids != '' and ids != null">
+               role_id in
+            <foreach item="item" index="index" collection="ids" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    
+    
+    <select id="selectUserMailByRolesAndUserIds" resultType="java.util.HashMap" parameterType="map">
+    	<if test="roleIds != null and roleIds.size() > 0">
+	      	SELECT ub.usba_id, ub.usba_mail FROM user_basic ub JOIN user_role ur ON ub.usba_id = ur.usba_id 
+	      	WHERE ur.role_id in
+	        <foreach item="item" index="index" collection="roleIds" open="("
+	                 separator="," close=")">
+	            #{item}
+	        </foreach>
+        </if>
+        <if test="roleIds != null and roleIds.size() > 0 and userIds != null and userIds.size() > 0">
+			UNION
+		</if>
+		<if test="userIds != null and userIds.size() > 0">
+			SELECT ub.usba_id, ub.usba_mail FROM user_basic ub 
+			WHERE ub.usba_id in
+	        <foreach item="item" index="index" collection="userIds" open="("
+	                 separator="," close=")">
+	            #{item}
+	        </foreach>
+        </if>
+    </select>
+    
+    
+    <select id="selectUserMailUserId" resultType="string" parameterType="string">
+		SELECT ub.usba_mail FROM user_basic ub where ub.usba_id = #{userId}
+    </select>
+    
+    
+    <update id="updateSts">
+    	update tb_message_receive set sts='2' where id=#{id} and sts='1'
+    </update>
+    
+
+    <!-- Start Insert Message -->
+    <insert id="batchInsertMessage" >
+        INSERT INTO tb_message_receive
+        (detail,relation_domain,relation_domain_id,send_user_id,sendtime,title,mstip,)
+        values
+        <foreach collection="departmentJoinExcels" item = "departmentJoinExcel" separator="," >
+            <trim prefix=" (" suffix=")" suffixOverrides="," >
+                (
+                SELECT depa_id FROM department
+                AS parentDeparment
+                WHERE parentDeparment.depa_no=#{departmentJoinExcel.depDepaNo,jdbcType=VARCHAR}
+                ),
+                (
+                SELECT grad_id FROM grade
+                WHERE grade.grad_grade_name=#{departmentJoinExcel.gradGradeName,jdbcType=VARCHAR}
+                ),
+                #{departmentJoinExcel.depaName,jdbcType=VARCHAR},
+                #{departmentJoinExcel.depaNo,jdbcType=VARCHAR},
+                #{depaCreateDate,jdbcType=TIMESTAMP}
+            </trim>
+        </foreach>
+    </insert>
+    <!-- End Insert -->
+
+
+
+    <insert id="InsertMessage" parameterType="com.ucsmy.mc.module.message.entity.MessReceive" >
+        insert into tb_message_receive
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="detail != null" >
+                detail,
+            </if>
+            <if test="send_user_id != null" >
+                send_user_id,
+            </if>
+            <if test="send_time != null" >
+                send_time,
+            </if>
+            <if test="relation_domain != null" >
+                relation_domain,
+            </if>
+            <if test="relation_domain_id != null" >
+                relation_domain_id,
+            </if>
+            <if test="sts != null" >
+                sts,
+            </if>
+            <if test="rev_user_id != null" >
+                rev_user_id,
+            </if>
+            <if test="mstip != null" >
+                mstip,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null" >
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="detail != null" >
+                #{detail,jdbcType=VARCHAR},
+            </if>
+            <if test="send_user_id != null" >
+                #{send_user_id,jdbcType=VARCHAR},
+            </if>
+            <if test="send_time != null" >
+                #{send_time,jdbcType=TIMESTAMP},
+            </if>
+            <if test="relation_domain != null" >
+                #{relation_domain,jdbcType=VARCHAR},
+            </if>
+            <if test="relation_domain_id != null" >
+                #{relation_domain_id,jdbcType=VARCHAR},
+            </if>
+            <if test="sts != null" >
+                #{sts,jdbcType=VARCHAR},
+            </if>
+            <if test="rev_user_id != null" >
+                #{rev_user_id,jdbcType=VARCHAR},
+            </if>
+            <if test="mstip != null" >
+                #{mstip,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    
+    <select id="selectMessageJoinGlobObjById" resultType="java.util.HashMap">
+    	SELECT * FROM tb_message_receive tmr JOIN glob_obj go ON tmr.relation_domain = go.glob_id 
+    	WHERE tmr.id = #{id};
+    </select>
+</mapper>

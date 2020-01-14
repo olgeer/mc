@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.exmapper.ExDepartmentMapper">
+
+	<!-- Begin resultMap -->
+	<resultMap id="DepartmentTreeResultMap" type="com.ucsmy.mc.common.pojo.DepartmentTree" >
+		<id column="depa_id" property="depaId" jdbcType="CHAR" />
+		<result column="depa_parent_id" property="depaParentId" jdbcType="CHAR" />
+	    <result column="depa_no" property="depaNo" jdbcType="VARCHAR" />
+	    <result column="depa_name" property="depaName" jdbcType="VARCHAR" />
+	    <result column="grad_grade_no" property="gradGradeNo" jdbcType="TINYINT" />
+    	<result column="grad_grade_name" property="gradGradeName" jdbcType="VARCHAR" />
+		<association column="depa_parent_id" property="parent"  select="selectParent"></association>
+		<collection column="depa_id" property="childList" select="selectChildLists"></collection>
+	</resultMap>
+	<!-- End resultMap -->
+	
+	 <sql id="DepartmentTree_Column_List" >
+	    department.depa_id, department.depa_parent_id,depa_no,depa_name,grad_grade_no,grad_grade_name
+	 </sql>
+	 
+	<!-- Begin select -->
+	<select id="selectParent" resultMap="DepartmentTreeResultMap">
+		select
+		<include refid="DepartmentTree_Column_List"/>
+		from department
+		INNER JOIN grade ON grade.grad_id=department.grad_id
+		WHERE depa_id = #{depa_parent_id,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectChildLists" resultMap="DepartmentTreeResultMap">
+		select
+		<include refid="DepartmentTree_Column_List"/>
+		from department
+		INNER JOIN grade ON grade.grad_id=department.grad_id
+		WHERE depa_parent_id = #{depa_id,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectDepartmentTree" resultMap="DepartmentTreeResultMap">
+		select 
+	    <include refid="DepartmentTree_Column_List" />
+	    from department
+	    INNER JOIN grade ON grade.grad_id=department.grad_id
+	    where department.depa_parent_id is null 
+	</select>
+	
+	<!-- End select -->
+</mapper>

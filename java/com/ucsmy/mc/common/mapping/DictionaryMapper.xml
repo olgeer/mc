@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.DictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.Dictionary" >
+    <id column="dictionary_id" property="id" jdbcType="INTEGER" />
+    <result column="dictionary_code" property="code" jdbcType="TINYINT" />
+    <result column="dictionary_value" property="value" jdbcType="VARCHAR" />
+    <result column="dictionary_kind" property="kind" jdbcType="VARCHAR" />
+    <result column="dictionary_detial" property="detial" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dictionary.id as dictionary_id, dictionary.code as dictionary_code, dictionary.value as dictionary_value, 
+    dictionary.kind as dictionary_kind, dictionary.detial as dictionary_detial
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dictionary dictionary
+    where dictionary.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dictionary
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.Dictionary" >
+    insert into dictionary (id, code, value, 
+      kind, detial)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=TINYINT}, #{value,jdbcType=VARCHAR}, 
+      #{kind,jdbcType=VARCHAR}, #{detial,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.Dictionary" >
+    insert into dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="kind != null" >
+        kind,
+      </if>
+      <if test="detial != null" >
+        detial,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=TINYINT},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="detial != null" >
+        #{detial,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.Dictionary" >
+    update dictionary
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=TINYINT},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        kind = #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="detial != null" >
+        detial = #{detial,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.Dictionary" >
+    update dictionary
+    set code = #{code,jdbcType=TINYINT},
+      value = #{value,jdbcType=VARCHAR},
+      kind = #{kind,jdbcType=VARCHAR},
+      detial = #{detial,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

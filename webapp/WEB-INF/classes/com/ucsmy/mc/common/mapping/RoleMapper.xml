@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.Role" >
+    <id column="role_role_id" property="roleId" jdbcType="CHAR" />
+    <result column="role_grad_id" property="gradId" jdbcType="CHAR" />
+    <result column="role_role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_role_type" property="roleType" jdbcType="TINYINT" />
+    <result column="role_role_describe" property="roleDescribe" jdbcType="VARCHAR" />
+    <result column="role_role_modify_date" property="roleModifyDate" jdbcType="TIMESTAMP" />
+    <result column="role_role_create_date" property="roleCreateDate" jdbcType="TIMESTAMP" />
+    <result column="role_role_sort" property="roleSort" jdbcType="TINYINT" />
+    <result column="role_role_use_status" property="roleUseStatus" jdbcType="TINYINT" />
+    <result column="role_role_edit_status" property="roleEditStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    role.role_id as role_role_id,role.grad_id as role_grad_id, role.role_name as role_role_name, role.role_type as role_role_type, 
+    role.role_describe as role_role_describe, role.role_modify_date as role_role_modify_date, 
+    role.role_create_date as role_role_create_date, role.role_sort as role_role_sort, 
+    role.role_use_status as role_role_use_status, role.role_edit_status as role_role_edit_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from role role
+    where role.role_id = #{roleId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from role
+    where role_id = #{roleId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.Role" >
+    insert into role (role_id, role_name, role_type, 
+      role_describe, role_modify_date, role_create_date, 
+      role_sort, role_use_status, role_edit_status,grad_id
+      )
+    values (#{roleId,jdbcType=CHAR}, #{roleName,jdbcType=VARCHAR}, #{roleType,jdbcType=TINYINT}, 
+      #{roleDescribe,jdbcType=VARCHAR}, #{roleModifyDate,jdbcType=TIMESTAMP}, #{roleCreateDate,jdbcType=TIMESTAMP}, 
+      #{roleSort,jdbcType=TINYINT}, #{roleUseStatus,jdbcType=TINYINT}, #{roleEditStatus,jdbcType=TINYINT},#{gradId,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.Role" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+       <if test="gradId != null" >
+        grad_id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="roleType != null" >
+        role_type,
+      </if>
+      <if test="roleDescribe != null" >
+        role_describe,
+      </if>
+      <if test="roleModifyDate != null" >
+        role_modify_date,
+      </if>
+      <if test="roleCreateDate != null" >
+        role_create_date,
+      </if>
+      <if test="roleSort != null" >
+        role_sort,
+      </if>
+      <if test="roleUseStatus != null" >
+        role_use_status,
+      </if>
+      <if test="roleEditStatus != null" >
+        role_edit_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=CHAR},
+      </if>
+      <if test="gradId != null" >
+        #{gradId,jdbcType=CHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null" >
+        #{roleType,jdbcType=TINYINT},
+      </if>
+      <if test="roleDescribe != null" >
+        #{roleDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="roleModifyDate != null" >
+        #{roleModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleCreateDate != null" >
+        #{roleCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleSort != null" >
+        #{roleSort,jdbcType=TINYINT},
+      </if>
+      <if test="roleUseStatus != null" >
+        #{roleUseStatus,jdbcType=TINYINT},
+      </if>
+      <if test="roleEditStatus != null" >
+        #{roleEditStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.Role" >
+    update role
+    <set >
+      <if test="gradId != null" >
+        grad_id= #{gradId,jdbcType=CHAR},
+      </if>
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null" >
+        role_type = #{roleType,jdbcType=TINYINT},
+      </if>
+      <if test="roleDescribe != null" >
+        role_describe = #{roleDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="roleModifyDate != null" >
+        role_modify_date = #{roleModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleCreateDate != null" >
+        role_create_date = #{roleCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleSort != null" >
+        role_sort = #{roleSort,jdbcType=TINYINT},
+      </if>
+      <if test="roleUseStatus != null" >
+        role_use_status = #{roleUseStatus,jdbcType=TINYINT},
+      </if>
+      <if test="roleEditStatus != null" >
+        role_edit_status = #{roleEditStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.Role" >
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_type = #{roleType,jdbcType=TINYINT},
+      role_describe = #{roleDescribe,jdbcType=VARCHAR},
+      role_modify_date = #{roleModifyDate,jdbcType=TIMESTAMP},
+      role_create_date = #{roleCreateDate,jdbcType=TIMESTAMP},
+      role_sort = #{roleSort,jdbcType=TINYINT},
+      role_use_status = #{roleUseStatus,jdbcType=TINYINT},
+      role_edit_status = #{roleEditStatus,jdbcType=TINYINT},
+      grad_id= #{gradId,jdbcType=CHAR}
+    where role_id = #{roleId,jdbcType=CHAR}
+  </update>
+</mapper>

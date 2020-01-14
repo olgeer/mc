@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.exmapper.ExPermissionMapper" >
+
+ 	<select id="selectPermissionList" resultType="java.util.Map">
+		SELECT perm1.perm_id,perm1.perm_name,
+			perm1.perm_url,
+			perm1.perm_sort,perm1.perm_use_status,
+			perm1.perm_resource,
+			perm1.perm_parent_id,
+			perm1.perm_type,
+			perm2.perm_name as perm_parent_name
+		FROM permission perm1
+		LEFT JOIN permission perm2 ON perm1.perm_parent_id=perm2.perm_id
+		WHERE 1=1
+		<if test="perm_name != null">
+			AND perm1.perm_name  LIKE CONCAT(CONCAT('%', #{perm_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="perm_url != null">
+			AND perm1.perm_url  LIKE CONCAT(CONCAT('%', #{perm_url,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="perm_resource != null">
+			AND perm1.perm_resource LIKE CONCAT(CONCAT('%', #{perm_resource,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="perm_sort != null">
+			AND perm1.perm_sort = #{perm_sort,jdbcType=TINYINT}
+		</if>
+		<if test="perm_use_status != null">
+			AND perm1.perm_use_status = #{perm_use_status,jdbcType=TINYINT}
+		</if>
+		<if test="perm_type != null">
+			AND perm1.perm_type = #{perm_type,jdbcType=TINYINT}
+		</if>
+		<if test="perm_parent_name != null">
+			AND perm2.perm_name LIKE CONCAT(CONCAT('%', #{perm_parent_name,jdbcType=VARCHAR}),'%')
+		</if>
+		ORDER BY perm1.perm_sort,perm2.perm_sort ASC 
+	</select>
+	
+	<select id="getPermissionRootList" 
+ 		resultMap="com.ucsmy.mc.common.mapper.PermissionMapper.BaseResultMap">
+		select
+			<include refid="com.ucsmy.mc.common.mapper.PermissionMapper.Base_Column_List" />
+		from permission
+		where perm_parent_id is null and perm_use_status=1
+      	order by perm_sort asc
+	</select>
+	
+ 	<select id="getPermissionChindren"
+            resultMap="com.ucsmy.mc.common.mapper.PermissionMapper.BaseResultMap" parameterType="java.lang.String">
+		select
+			<include refid="com.ucsmy.mc.common.mapper.PermissionMapper.Base_Column_List" />
+		from permission
+		where perm_use_status=1 and perm_parent_id = #{pId,jdbcType=CHAR}
+		order by perm_sort asc
+	</select>
+	
+	
+	
+	<select id="selectRootPermissionsByRoleId" resultMap="com.ucsmy.mc.common.mapper.PermissionMapper.BaseResultMap">
+		SELECT
+		distinct <include refid="com.ucsmy.mc.common.mapper.PermissionMapper.Base_Column_List"/>
+		FROM permission
+		where permission.perm_id in(
+			select rm.perm_id
+			from role_permission rm
+			WHERE rm.role_id = #{roleId,jdbcType=CHAR}
+		)
+		and permission.perm_parent_id is null and permission.perm_use_status=1 and permission.perm_type=1
+		order by permission.perm_sort asc
+	</select>
+	
+	<select id="selectChildrenPermissionsByRoleId" resultMap="com.ucsmy.mc.common.mapper.PermissionMapper.BaseResultMap">
+		SELECT
+		distinct <include refid="com.ucsmy.mc.common.mapper.PermissionMapper.Base_Column_List"/>
+		FROM permission
+		where permission.perm_id in(
+			select rm.perm_id
+			from role_permission rm
+			WHERE rm.role_id = #{roleId,jdbcType=CHAR}
+		)
+		and perm_use_status=1 and permission.perm_type=1 and perm_parent_id = #{pId,jdbcType=CHAR}
+		order by permission.perm_sort asc
+	</select>
+	
+	
+	<select id="selectPermissionsByRoleIds" resultMap="com.ucsmy.mc.common.mapper.PermissionMapper.BaseResultMap">
+		SELECT distinct <include refid="com.ucsmy.mc.common.mapper.PermissionMapper.Base_Column_List"/>
+		FROM permission JOIN role_permission ON permission.perm_id = role_permission.perm_id
+		WHERE permission.perm_use_status=1 and permission.perm_type=1 and role_permission.role_id in
+		<foreach item="item" collection="list" open="(" separator="," close=")">  
+		  #{item}
+		</foreach>
+		order by permission.perm_sort asc
+	</select>
+
+</mapper>

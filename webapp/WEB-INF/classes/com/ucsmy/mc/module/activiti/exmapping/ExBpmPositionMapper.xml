@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.activiti.exmapper.ExBpmPositionMapper">
+
+	<!-- Begin resultMap -->
+	<resultMap id="BpmPositionTreeResultMap" type="com.ucsmy.mc.common.pojo.BpmPositionTree" >
+		<id column="bppo_id" property="bppoId" jdbcType="CHAR" />
+		<result column="bppo_parent_id" property="bpoParentId" jdbcType="CHAR" />
+	    <result column="bppo_no" property="bppoNo" jdbcType="VARCHAR" />
+	    <result column="bppo_name" property="bppoName" jdbcType="VARCHAR" />
+	    <result column="grad_grade_no" property="gradGradeNo" jdbcType="TINYINT" />
+    	<result column="grad_grade_name" property="gradGradeName" jdbcType="VARCHAR" />
+		<association column="bppo_parent_id" property="parent"  select="selectParent"></association>
+		<collection column="bppo_id" property="childList" select="selectChildLists"></collection>
+	</resultMap>
+	<!-- End resultMap -->
+	
+	 <sql id="BpmPositionTree_Column_List" >
+	    position.bppo_id, position.bppo_parent_id,position.bppo_no,position.bppo_name,grade.grad_grade_no,grade.grad_grade_name
+	 </sql>
+	 
+	<!-- Begin select -->
+	<select id="selectParent" resultMap="BpmPositionTreeResultMap">
+		select
+		<include refid="BpmPositionTree_Column_List"/>
+		from bpm_position position
+		INNER JOIN grade grade ON grade.grad_id=position.grad_id
+		WHERE position.bppo_id = #{bppo_parent_id,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectChildLists" resultMap="BpmPositionTreeResultMap">
+		select
+		<include refid="BpmPositionTree_Column_List"/>
+		from bpm_position position
+		INNER JOIN grade grade ON grade.grad_id=position.grad_id
+		WHERE position.bppo_parent_id = #{bppo_id,jdbcType=CHAR}
+	</select>
+	
+	<select id="selectBpmPositionTree" resultMap="BpmPositionTreeResultMap">
+		select 
+	    <include refid="BpmPositionTree_Column_List" />
+	    from bpm_position position
+	    INNER JOIN grade grade ON grade.grad_id=position.grad_id
+	    where position.bppo_parent_id is null 
+	</select>
+	
+	<!-- End select -->
+</mapper>

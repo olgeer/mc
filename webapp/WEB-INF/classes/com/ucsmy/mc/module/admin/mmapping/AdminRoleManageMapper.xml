@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.admin.mmapper.AdminRoleManageMapper">
+
+	
+	<select id="selectRoleList" resultType="java.util.Map">
+		SELECT 
+		role_id,role_name,role_describe,role_use_status,role_edit_status,grad_grade_name 
+		FROM role
+		LEFT JOIN grade ON grade.grad_id=role.grad_id
+		WHERE  1=1
+		<if test="role_name != null">
+			AND role_name  LIKE CONCAT(CONCAT('%', #{role_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="role_describe != null" >
+			AND role_describe  LIKE CONCAT(CONCAT('%', #{role_describe,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="role_use_status != null" >
+			AND role_use_status = #{role_use_status,jdbcType=TINYINT}
+		</if>
+		<if test="grad_grade_name!=null">
+			AND grade.grad_grade_name LIKE CONCAT(CONCAT('%', #{grad_grade_name,jdbcType=VARCHAR}),'%')
+		</if>
+	</select>
+	
+	<select id="selectPermissionsByRoleId"  resultType="java.lang.String">
+		SELECT perm_id AS permId
+		FROM role_permission
+		WHERE role_id = #{roleId,jdbcType=CHAR}
+	</select>
+	
+	<!-- Start Insert -->
+	<insert id="insertRolePermissions"   parameterType = "java.util.List">
+		 INSERT INTO role_permission
+			       (
+			       rope_id, 
+			       perm_id,
+			        role_id,
+			        rope_create_date
+			       )
+			values 
+		<foreach collection="list" item="rolePermission" index="index"  separator="," >
+		    <trim prefix=" (" suffix=")" suffixOverrides="," >
+		      	#{rolePermission.ropeId},
+		        #{rolePermission.permId},
+		        #{rolePermission.roleId},
+		        #{rolePermission.ropeCreateDate}
+		    </trim>
+		</foreach>
+	</insert>
+	
+	 <delete id="deleteRolePermissionByRoleId" parameterType="java.lang.String" >
+	    delete from role_permission
+	    where role_id = #{roleId,jdbcType=INTEGER}
+	 </delete>
+	 
+</mapper>

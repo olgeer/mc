@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.exmapper.ExUserBasicMapper">
+	<sql id="Mini_User_Column_List" >
+	    user_basic.usba_id as user_basic_usba_id, usba_account as user_basic_usba_account, 
+	    usba_name as user_basic_usba_name, usba_password as user_basic_usba_password, 
+	    usba_failure_count as user_basic_usba_failure_count, usba_credential_expired as user_basic_usba_credential_expired, 
+	    usba_account_expired as user_basic_usba_account_expired, usba_account_enable as user_basic_usba_account_enable, 
+	    usba_account_locked as user_basic_usba_account_locked,usba_superior_id as user_basic_usba_superior_id,
+	    depa_id as user_basic_depa_id
+  	</sql>
+	
+	<select id="selectUserBasicByUserAccount" resultMap="com.ucsmy.mc.common.mapper.UserBasicMapper.BaseResultMap">
+		SELECT
+		<include refid="Mini_User_Column_List"/>
+		FROM user_basic
+		WHERE user_basic.usba_account_enable = 1
+		AND user_basic.usba_account_locked = 1
+		AND user_basic.usba_account_expired =1
+		<!-- AND user_basic.usba_credential_expired = 1 -->
+		AND user_basic.usba_account = #{account,jdbcType=VARCHAR} 
+	</select>
+	
+	<select id="selectFullUserBasicByAccount" resultMap="com.ucsmy.mc.common.mapper.UserBasicMapper.BaseResultMap">
+		SELECT
+		<include refid="com.ucsmy.mc.common.mapper.UserBasicMapper.Base_Column_List"/>
+		FROM user_basic
+		WHERE user_basic.usba_account_enable = 1
+		AND user_basic.usba_account_locked = 1
+		AND user_basic.usba_account_expired =1
+		<!-- AND user_basic.usba_credential_expired = 1 -->
+		AND user_basic.usba_account = #{account,jdbcType=VARCHAR} 
+	</select>
+	
+	
+	<select id="selectUserInfoByDepaIdAndUsbaAccount" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT
+			user_basic.usba_id, user_basic.depa_id, 
+		    usba_account, usba_name, usba_photo_url, usba_politics_status, usba_nation, usba_short_phone, 
+		    usba_long_phone1, usba_long_phone2, usba_degree, usba_position, usba_email_binding, 
+		    usba_sex, usba_email, usba_professional_title, usba_education_background, 
+		    usba_research_direction, usba_teaching_research, usba_awards, usba_login_ip, 
+		    usba_office_address, usba_office_phone, usba_qq, usba_attribute_0, 
+		    usba_attribute_1, usba_attribute_2,  usba_attribute_3, usba_attribute_4, 
+		    department.depa_id, department.depa_name
+		FROM user_basic 
+		INNER JOIN department ON department.depa_id = user_basic.depa_id 
+		WHERE user_basic.usba_account_enable = 1
+		AND user_basic.usba_account_locked = 1
+		AND user_basic.usba_account_expired =1
+		<!--  AND user_basic.usba_credential_expired = 1 -->
+		AND user_basic.usba_account = #{tebaAccount,jdbcType=VARCHAR}
+		AND department.depa_id = #{depaId,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="batchDeleteUserBasicByUsbaIds">
+		DELETE FROM user_basic
+		WHERE user_basic.usba_id IN 
+		<foreach collection="list" item="usbaId" index="index" open="(" separator="," close=")">
+			#{usbaId, jdbcType=CHAR}
+		</foreach>
+	</delete>
+	<select id="selectUserBasicByUsbaAccount" resultMap="com.ucsmy.mc.common.mapper.UserBasicMapper.BaseResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="com.ucsmy.mc.common.mapper.UserBasicMapper.Base_Column_List"/>
+		FROM user_basic
+		WHERE user_basic.usba_account = #{username,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectUserBasicBySomeId" resultMap="com.ucsmy.mc.common.mapper.UserBasicMapper.BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="com.ucsmy.mc.common.mapper.UserBasicMapper.Base_Column_List"/>
+		FROM user_basic
+		WHERE user_basic.usba_id in(${usba_ids})
+	</select>
+	
+	<update id="updateCredentialExpiredByUsbaIdAndToken" parameterType="com.ucsmy.mc.common.entity.UserBasic">
+		UPDATE user_basic 
+		SET usba_credential_expired = '0'
+		WHERE usba_id = #{usbaId} AND usba_credential_token = #{usbaCredentialToken}
+	</update>
+	
+</mapper>

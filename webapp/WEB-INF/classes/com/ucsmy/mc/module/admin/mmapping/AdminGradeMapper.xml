@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.admin.mmapper.AdminGradeMapper">
+
+	<select id="selectGradeList" resultMap="com.ucsmy.mc.common.mapper.GradeMapper.BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+		<include refid="com.ucsmy.mc.common.mapper.GradeMapper.Base_Column_List"/>
+		FROM grade grade
+		where grade.grad_type = #{gradType,jdbcType=INTEGER}
+		ORDER BY grad_grade_no ASC
+	</select>
+	<!--批量删除 Start Delete -->
+	<delete id="batchDeleteGrade" parameterType = "java.util.List">
+		 DELETE from grade where grad_id IN 
+	    <foreach collection="list" item = "gradId" open="(" separator="," close=")">
+	    	#{gradId}
+	    </foreach>
+	</delete>
+	<!-- End Delete -->
+</mapper>

@@ -1,0 +1,334 @@
+/* here you can put your own css to customize and override the theme */
+.input-group .form-control {
+	z-index: 0 !important;   /* myth:ylm add */
+}
+
+label.form-control {
+	height:34px !important;
+}
+
+/* 解决IE8 datatable 分页栏跑版问题  By CCT */
+.dataTables_extended_wrapper .dataTables_length {
+  display: inline-block;
+  float: none !important;
+  padding: 0 !important;
+   margin-right: 2px !important;
+  min-width:165px!important;
+  position: static !important;
+}
+.paging_bootstrap_extended {
+  padding: 0 !important;
+  float: none !important;
+  min-width:160px;
+  font-size: 13px;
+}
+.paging_bootstrap_extended .pagination-panel{
+  margin-right: 2px !important;
+}
+
+
+/* 解决IE8 表单 Select 跑版问题  By CCT  */
+.bootstrap-select{
+  width:100% !important;
+}
+
+.ms-container{
+  background: transparent url('../img/switch.png') no-repeat 50% 50%;
+  width:100% !important;
+}
+
+.stick-bottom {
+	margin-bottom:0px !important;
+}
+
+/* 设置datatable右上角的 select样式*/
+.bs-select-datatable{
+  width:auto !important;
+  margin-bottom:6px !important;
+}
+
+/* by HONG */
+pre {
+	height:auto !important;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+/* 解决bootstrap-switch的跑版问题 By HONG */
+label.bootstrap-switch-label {
+	height:24px !important;
+}
+
+/* by ylm */
+.form-line {
+	margin: 0px 0px 15px 0px;
+	border-bottom: 1px solid #eee;
+}
+
+/* 修改底部栏样式  By CCT */
+.page-footer .page-footer-inner {
+	float:none!important;
+}
+.page-footer {
+	padding-top:0px!important;
+	padding-bottom:0px!important;
+}
+
+.edui-container{
+    z-index: 0 ! important;
+}
+/* 修改流程图样式  解决延迟加载问题 By ICE */
+@media (min-width: 920px) {
+	#viewHistoryGraph {
+		min-height: 70px;
+	}
+}
+@media (max-width: 920px) {
+	#viewHistoryGraph {
+		min-height: auto;
+	}
+}
+
+
+
+
+
+
+/***
+Error Pages begin
+***/
+/* 404 page option #1 */
+.page-404 {
+  text-align: center;
+}
+
+.page-404 .number {
+  position: relative;
+  top: 35px;
+  display: inline-block;
+  letter-spacing: -10px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  line-height: 128px;
+  font-size: 128px;
+  font-weight: 300;
+  color: #7bbbd6;
+  text-align: right;
+}
+
+.page-404 .details {
+  margin-left: 40px;
+  display: inline-block;
+  padding-top: 0px;
+  text-align: left;
+}
+
+/* 500 page option #1 */
+.page-500 {
+  text-align: center;
+}
+
+.page-500 .number {
+  display: inline-block;
+  letter-spacing: -10px;
+  line-height: 128px;
+  font-size: 128px;
+  font-weight: 300;
+  color: #ec8c8c;
+  text-align: right;
+}
+
+.page-500 .details {
+  margin-left: 40px;
+  display: inline-block;
+  text-align: left;
+}
+
+/* 404 page option #2*/
+.page-404-full-page {
+  overflow-x: hidden;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #fafafa !important;
+}
+
+.page-404-full-page .details input {
+  background-color: #ffffff;
+}
+
+.page-404-full-page .page-404 {
+  margin-top: 100px;
+}
+
+/* 500 page option #2*/
+.page-500-full-page {
+  overflow-x: hidden;
+  padding: 20px;
+  background-color: #fafafa !important;
+}
+
+.page-500-full-page .details input {
+  background-color: #ffffff;
+}
+
+.page-500-full-page .page-500 {
+  margin-top: 100px;
+}
+
+/* 404 page option #3*/
+.page-404-3 {
+  background: black !important;
+}
+
+.page-404-3 .page-inner img {
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  position: absolute;
+}
+
+.page-404-3 .error-404 {
+  color: #fff;
+  text-align: left;
+  padding: 70px 20px 0;
+}
+
+.page-404-3 h1 {
+  color: #fff;
+  font-size: 130px;
+  line-height: 160px;
+}
+
+.page-404-3 h2 {
+  color: #fff;
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+.page-404-3 p {
+  color: #fff;
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  .page-404 .number,
+  .page-500 .number,
+  .page-404 .details,
+  .page-500 .details {
+    text-align: center;
+    margin-left: 0px;
+  }
+
+  .page-404-full-page .page-404 {
+    margin-top: 30px;
+  }
+
+  .page-404-3 .error-404 {
+    text-align: left;
+    padding-top: 10px;
+  }
+
+  .page-404-3 .page-inner img {
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    position: fixed;
+  }
+}
+/***
+Error Pages end
+***/
+
+[v-if] {
+  display: none
+}
+
+.table-header-search-content {
+  border: 1px solid #4069a6;
+  padding: 3px 8px;
+  margin-bottom: 5px;
+  background: #4069a6;
+}
+
+.table-header-search-content .search-header-title {
+  color: #fff;
+  line-height: 18px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* Common styles for all types */
+.bs-callout {
+  margin: 8px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code {
+  border-radius: 3px;
+}
+
+/* Tighten up space between multiple callouts */
+
+/* Variations */
+.bs-callout-danger {
+  border-left-color: #ce4844;
+}
+.bs-callout-danger h4 {
+  color: #ce4844;
+}
+.bs-callout-warning {
+  border-left-color: #aa6708;
+}
+.bs-callout-warning h4 {
+  color: #aa6708;
+}
+.bs-callout-info {
+  border-left-color: #1b809e;
+}
+.bs-callout-info h4 {
+  color: #1b809e;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+
+::-webkit-scrollbar-button {
+  display: none;
+
+}
+
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: #fff;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+  width: 6px;
+  background: rgba(118,176,243,.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  min-height: 15px;
+  background: rgba(0,0,0,.2);
+  border-radius: 5px;
+}

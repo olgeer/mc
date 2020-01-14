@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.activiti.mapper.BpmPositionMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.module.activiti.entity.BpmPosition" >
+    <id column="bppo_id" property="bppoId" jdbcType="CHAR" />
+    <result column="grad_id" property="gradId" jdbcType="CHAR" />
+    <result column="bppo_name" property="bppoName" jdbcType="VARCHAR" />
+    <result column="bppo_no" property="bppoNo" jdbcType="VARCHAR" />
+    <result column="bppo_parent_id" property="bppoParentId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bppo_id, grad_id, bppo_name, bppo_no, bppo_parent_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from bpm_position
+    where bppo_id = #{bppoId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" >
+    delete from bpm_position
+    where bppo_id = #{bppoId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert">
+    insert into bpm_position (bppo_id, grad_id, bppo_name, 
+      bppo_no, bppo_parent_id)
+    values (#{bppoId,jdbcType=CHAR}, #{gradId,jdbcType=CHAR}, #{bppoName,jdbcType=VARCHAR}, 
+      #{bppoNo,jdbcType=VARCHAR}, #{bppoParentId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.module.activiti.entity.BpmPosition" >
+    insert into bpm_position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bppoId != null" >
+        bppo_id,
+      </if>
+      <if test="gradId != null" >
+        grad_id,
+      </if>
+      <if test="bppoName != null" >
+        bppo_name,
+      </if>
+      <if test="bppoNo != null" >
+        bppo_no,
+      </if>
+      <if test="bppoParentId != null" >
+        bppo_parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bppoId != null" >
+        #{bppoId,jdbcType=CHAR},
+      </if>
+      <if test="gradId != null" >
+        #{gradId,jdbcType=CHAR},
+      </if>
+      <if test="bppoName != null" >
+        #{bppoName,jdbcType=VARCHAR},
+      </if>
+      <if test="bppoNo != null" >
+        #{bppoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bppoParentId != null" >
+        #{bppoParentId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.module.activiti.entity.BpmPosition" >
+    update bpm_position
+    <set >
+      <if test="gradId != null" >
+        grad_id = #{gradId,jdbcType=CHAR},
+      </if>
+      <if test="bppoName != null" >
+        bppo_name = #{bppoName,jdbcType=VARCHAR},
+      </if>
+      <if test="bppoNo != null" >
+        bppo_no = #{bppoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bppoParentId != null" >
+        bppo_parent_id = #{bppoParentId,jdbcType=CHAR},
+      </if>
+    </set>
+    where bppo_id = #{bppoId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.module.activiti.entity.BpmPosition" >
+    update bpm_position
+    set grad_id = #{gradId,jdbcType=CHAR},
+      bppo_name = #{bppoName,jdbcType=VARCHAR},
+      bppo_no = #{bppoNo,jdbcType=VARCHAR},
+      bppo_parent_id = #{bppoParentId,jdbcType=CHAR}
+    where bppo_id = #{bppoId,jdbcType=CHAR}
+  </update>
+  
+  
+  
+	<select id="selectPositionList" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" />
+	    from bpm_position
+	    <where>
+			<if test="bppo_name != null">
+				AND bppo_name = #{bppo_name}
+			</if>
+		</where>
+	</select>
+  
+</mapper>

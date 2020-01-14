@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.admin.mmapper.AdminDepartmentMapper">
+
+	<select id="selectDepartmentList" resultType="java.util.Map">
+		SELECT department1.depa_id,department1.depa_no,department1.depa_name 
+		,department2.depa_no as depa_parent_no,department2.depa_name as depa_parent_name,
+		grad_grade_name 
+		FROM department as department1
+		LEFT JOIN department as department2 ON department2.depa_id=department1.depa_parent_id
+		INNER JOIN grade ON grade.grad_id=department1.grad_id
+		WHERE  1=1
+		<if test="depa_name!=null">
+			AND department1.depa_name  LIKE CONCAT(CONCAT('%', #{depa_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="depa_no!=null">
+			AND department1.depa_no  LIKE CONCAT(CONCAT('%', #{depa_no,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="depa_parent_name!=null">
+			AND department2.depa_name LIKE CONCAT(CONCAT('%', #{depa_parent_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="depa_parent_no!=null">
+			AND department2.depa_no LIKE CONCAT(CONCAT('%', #{depa_parent_no,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="grad_grade_name!=null">
+			AND grade.grad_grade_name LIKE CONCAT(CONCAT('%', #{grad_grade_name,jdbcType=VARCHAR}),'%')
+		</if>
+		ORDER BY grade.grad_grade_no ASC
+	</select>
+	
+	<select id="selectDepartmentMenu" resultType="java.util.Map">
+		SELECT department1.depa_id,department1.depa_no,department1.depa_name 
+		,department2.depa_id as parent_depa_id,department2.depa_name as parent_depa_name,grad_grade_no,
+		grad_grade_name ,department1.grad_id ,department2.grad_id as parent_grad_id
+		FROM department as department1
+		LEFT  JOIN department as department2 ON department2.depa_id=department1.depa_parent_id
+		INNER JOIN grade ON grade.grad_id=department1.grad_id  
+		WHERE department1.grad_id 
+		NOT IN(SELECT MAX(grad_grade_no) FROM grade )
+	</select>
+	
+	<select id="selectTopDepartment" resultMap="com.ucsmy.mc.common.mapper.DepartmentMapper.BaseResultMap" >
+	    SELECT 
+	    <include refid="com.ucsmy.mc.common.mapper.DepartmentMapper.Base_Column_List" />
+	    FROM department department
+	    WHERE department.depa_parent_id IS NULL
+	</select>
+	
+	<!-- Start Delete -->
+	<delete id="batchDeleteDepartment" parameterType = "java.util.List">
+		 DELETE from department where depa_id IN 
+	    <foreach collection="list" item = "depaId" open="(" separator="," close=")">
+	    	#{depaId}
+	    </foreach>
+	</delete>
+	<!-- End Delete -->
+	
+	
+	<!-- Start Insert -->
+	<insert id="batchInsertDepartment" >
+		 INSERT INTO department 
+		 (depa_parent_id,grad_id,depa_name,depa_no,depa_create_date)
+		 values 
+	    <foreach collection="departmentJoinExcels" item = "departmentJoinExcel" separator="," >
+	    	<trim prefix=" (" suffix=")" suffixOverrides="," >
+	    	 	(
+		    	 	SELECT depa_id FROM department 
+		    	 	AS parentDeparment
+		    	 	WHERE parentDeparment.depa_no=#{departmentJoinExcel.depDepaNo,jdbcType=VARCHAR}
+		    	 ),
+	    	 	(
+		    	 	SELECT grad_id FROM grade 
+		    	 	WHERE grade.grad_grade_name=#{departmentJoinExcel.gradGradeName,jdbcType=VARCHAR}
+		    	 ),
+		        #{departmentJoinExcel.depaName,jdbcType=VARCHAR},
+		        #{departmentJoinExcel.depaNo,jdbcType=VARCHAR},
+		        #{depaCreateDate,jdbcType=TIMESTAMP}
+	       </trim>
+	    </foreach>
+	</insert>
+	<!-- End Insert -->
+	
+</mapper>

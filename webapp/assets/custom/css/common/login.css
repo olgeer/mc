@@ -1,0 +1,162 @@
+/* CSS Document */
+/*css初始化  css reset*/
+body, div ,a ,dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, input, p, th, td { margin:0; padding:0; }
+body { font-size:12px;/* overflow-x:hidden;*/ color:#5F5F5F; font-family:"宋体"; background:url(../images/bdbg.png) no-repeat center top; line-height:20px;  min-width:1000px;  }
+img{ border:0;}
+body{ background-color:#1a6bc6}
+ol, ul { list-style:none; }
+h1, h2, h3, h4, h5, h6{ font-size:100%;/* 12px*/ }
+em,i{ font-style:normal; }
+input, button, select, textarea { outline:none; border:none;} 
+textarea { resize:none;/*设置textarea不可改变尺寸大小*/ }
+a { color:#98a2ad; text-decoration:none; }
+a:hover { color:#fff;}
+
+/*body样式*/
+body{
+	background-image:url(../images/body_bg.png);
+	background-size:cover;
+}
+.logintitle{
+	width:758px;
+	height:104px;
+	background:url(../images/login_title.png) no-repeat;
+	margin:80px auto 0px;
+  }
+
+  
+.loginbox{
+	width:388px;
+	height:300px;
+	margin:80px auto 0px;
+	 
+}
+.loginbox ul li{
+	width:388px;
+	height:46px;
+	margin-bottom:26px;
+	
+}
+.loginbox ul li .loginuser{
+	width:361px;
+	height:46px;
+	background:url(../images/login_text.png) no-repeat;
+	padding-left:27px;
+	font-size:14px;
+	color:#9a9a9a;
+}
+.loginbox ul li .loginpwd{
+	width:361px;
+	height:46px;
+	background:url(../images/login_text.png) no-repeat;
+	padding-left:27px;
+	font-size:14px;
+	color:#9a9a9a;
+}
+.yzm{
+	width:388px; 
+	height:48px;
+}
+.yzm span{
+	display:block; 
+	float:left;
+	width:250px; 
+	height:48px;
+	background:url(../images/yanzhengma.png) no-repeat;
+}
+.yzm span input{
+	background:none; 
+	border:none; 
+	width:223px; 
+	height:48px; 
+	line-height:40px;
+	padding-left:27px;
+	font-size:14px; 
+	color:#9a9a9a;
+}
+.yzm cite{
+	float:left; 
+	width:124px; 
+	height:44px;
+	background:url(../images/login_cite.png) no-repeat;
+	line-height:40px;
+	margin-top:2px;
+	margin-left:14px;
+	font-size:30px; 
+	color:#1a6bc6; 
+	text-align:center;
+}
+em.set{
+	cursor:pointer;
+	display:inline-block;
+	width:56px;
+	height:27px;
+	float:left;
+	background:url(../images/login_floowme.png) no-repeat;
+ 	
+}
+em.clickSet{
+	cursor:pointer;
+	display:inline-block;
+	width:56px;
+	height:27px;
+	float:left;
+	background:url(../images/login_floowme_02.png) no-repeat;
+ 	
+}
+.remenberMetxt{float:left; color:#fff;font-size:14px;
+cursor:pointer;
+	color:#fff;
+	margin-left:10px;
+	line-height:27px;	height:27px;}
+/*.loginbox ul li.set:hover{
+	background:url(../images/login_floowme_02.png) no-repeat;	
+}*/
+
+
+
+.loginbtn{
+	width:250px;
+	height:49px; 
+	background:url(../images/login_btn.png) repeat-x; 
+	font-size:14px; 
+	font-weight:bold; 
+	color:#fff;
+	cursor:pointer; 
+	line-height:49px;
+}
+.loginbm{
+	height:45px; 
+	line-height:45px; 
+	text-align:center;
+	background-color:#165dae;
+	background-repeat:repeat-x;
+ 	 bottom:0; 
+	 width:100%;
+	 position:absolute; 
+	 color:#fff;
+	 left:0p;
+ 	 z-index:0;
+	 
+}
+
+
+/*利用响应式布局*/
+@media only screen and (min-width: 1024px) and (max-width: 1280px){
+	 .logintitle{
+	width:758px;
+	height:104px;
+	background:url(../images/login_title.png) no-repeat;
+	margin:60px auto 0px;
+  }
+  
+  .loginbox{
+	width:388px;
+	height:300px;
+	margin:50px auto 0px;
+	 
+}
+ 
+	
+ 
+	}

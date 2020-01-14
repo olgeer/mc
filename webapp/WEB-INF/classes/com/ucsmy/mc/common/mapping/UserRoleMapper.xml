@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.UserRole" >
+    <id column="user_role_usro_id" property="usroId" jdbcType="CHAR" />
+    <result column="user_role_role_id" property="roleId" jdbcType="CHAR" />
+    <result column="user_role_usba_id" property="usbaId" jdbcType="CHAR" />
+    <result column="user_role_usro_modify_date" property="usroModifyDate" jdbcType="TIMESTAMP" />
+    <result column="user_role_usro_create_date" property="usroCreateDate" jdbcType="TIMESTAMP" />
+    <result column="user_role_usro_status" property="usroStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_role.usro_id as user_role_usro_id, user_role.role_id as user_role_role_id, user_role.usba_id as user_role_usba_id, 
+    user_role.usro_modify_date as user_role_usro_modify_date, user_role.usro_create_date as user_role_usro_create_date, 
+    user_role.usro_status as user_role_usro_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_role user_role
+    where user_role.usro_id = #{usroId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_role
+    where usro_id = #{usroId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.UserRole" >
+    insert into user_role (usro_id, role_id, usba_id, 
+      usro_modify_date, usro_create_date, usro_status
+      )
+    values (#{usroId,jdbcType=CHAR}, #{roleId,jdbcType=CHAR}, #{usbaId,jdbcType=CHAR}, 
+      #{usroModifyDate,jdbcType=TIMESTAMP}, #{usroCreateDate,jdbcType=TIMESTAMP}, #{usroStatus,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.UserRole" >
+    insert into user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usroId != null" >
+        usro_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="usbaId != null" >
+        usba_id,
+      </if>
+      <if test="usroModifyDate != null" >
+        usro_modify_date,
+      </if>
+      <if test="usroCreateDate != null" >
+        usro_create_date,
+      </if>
+      <if test="usroStatus != null" >
+        usro_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usroId != null" >
+        #{usroId,jdbcType=CHAR},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=CHAR},
+      </if>
+      <if test="usbaId != null" >
+        #{usbaId,jdbcType=CHAR},
+      </if>
+      <if test="usroModifyDate != null" >
+        #{usroModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usroCreateDate != null" >
+        #{usroCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usroStatus != null" >
+        #{usroStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.UserRole" >
+    update user_role
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=CHAR},
+      </if>
+      <if test="usbaId != null" >
+        usba_id = #{usbaId,jdbcType=CHAR},
+      </if>
+      <if test="usroModifyDate != null" >
+        usro_modify_date = #{usroModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usroCreateDate != null" >
+        usro_create_date = #{usroCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usroStatus != null" >
+        usro_status = #{usroStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where usro_id = #{usroId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.UserRole" >
+    update user_role
+    set role_id = #{roleId,jdbcType=CHAR},
+      usba_id = #{usbaId,jdbcType=CHAR},
+      usro_modify_date = #{usroModifyDate,jdbcType=TIMESTAMP},
+      usro_create_date = #{usroCreateDate,jdbcType=TIMESTAMP},
+      usro_status = #{usroStatus,jdbcType=TINYINT}
+    where usro_id = #{usroId,jdbcType=CHAR}
+  </update>
+  
+  <select id="selectRoleIdListByUsbaId" resultType="String">
+  	SELECT role_id FROM user_role WHERE usba_id = #{usbaId}
+  </select>
+  
+  <delete id="deleteByUsbaId">
+  	delete from user_role
+    where usba_id = #{usbaId}
+  </delete>
+  
+  <delete id="batchDeleteByUsbaIdAndRoleId">
+  	delete from user_role
+    where usba_id = #{param1} and role_id in
+    <foreach item="item" index="index" collection="param2" open="(" separator="," close=")">
+        #{item}
+  	</foreach>
+  </delete>
+  
+  <insert id="batchinsert" parameterType="com.ucsmy.mc.common.entity.UserRole" >
+    insert into user_role (usro_id, role_id, usba_id, 
+      usro_modify_date, usro_create_date, usro_status
+      ) values 
+    <foreach item="item" collection="list" separator=",">
+    (#{item.usroId,jdbcType=CHAR}, #{item.roleId,jdbcType=CHAR}, #{item.usbaId,jdbcType=CHAR}, 
+      #{item.usroModifyDate,jdbcType=TIMESTAMP}, #{item.usroCreateDate,jdbcType=TIMESTAMP}, #{item.usroStatus,jdbcType=TINYINT}
+      )
+    </foreach>
+  </insert>
+  
+  
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <!-- 数据库驱动包位置 -->
+  <classPathEntry location="D:/eclipse4.5/eclipse/workspace/20151123/apache-maven-3.2.3/repository/mysql/mysql-connector-java/5.1.29/mysql-connector-java-5.1.29.jar" />
+  <context id="context1" >
+    <!-- 去除自动生成的注释 -->
+    <commentGenerator>
+        <property name="suppressAllComments" value="true" />
+    </commentGenerator>
+    <!-- 数据库链接URL、用户名、密码 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://172.16.4.74:3306/cb" userId="root" password="root" />
+    <!-- 生成模型的包名和位置 -->
+    <javaModelGenerator targetPackage="com.ucsmy.mc.module.common.entity" targetProject="cb"  />
+    <!-- 生成的映射文件包名和位置 -->
+    <sqlMapGenerator targetPackage="com.ucsmy.mc.module.common.mapping" targetProject="cb" />
+    <!-- 生成DAO的包名和位置 -->
+    <javaClientGenerator targetPackage="com.ucsmy.mc.module.common.mapper" targetProject="cb" type="XMLMAPPER" />
+<!--     
+    <table alias="project_information"  schema="ProjectInformation" tableName="project_information"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="prin_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="announcement"  schema="Announcement" tableName="announcement"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="anno_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="bug_information"  schema="BugInformation" tableName="bug_information"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="buin_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="user_role"  schema="UserRole" tableName="user_role"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="usro_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="user_basic"  schema="UserBasic" tableName="user_basic"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="usba_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="department"  schema="Department" tableName="department"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="depa_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="bug_dispose_info"  schema="BugDisposeInfo" tableName="bug_dispose_info"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="bdin_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="role"  schema="Role" tableName="role"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="role_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="admin_role"  schema="AdminRole" tableName="admin_role"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="adro_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="administrator"  schema="Administrator" tableName="administrator"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="admi_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="activiti_executor"  schema="ActivitiExecutor" tableName="activiti_executor"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="acex_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="process_definition"  schema="ProcessDefinition" tableName="process_definition"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="prde_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="task_process"  schema="TaskProcess" tableName="task_process"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="tapr_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="role_module"  schema="RoleModule" tableName="role_module"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="romo_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="module"  schema="Module" tableName="module"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="modu_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    <table alias="parent_module"  schema="ParentModule" tableName="parent_module"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="pamo_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table> 
+    -->
+    <!-- <table alias="grade"  schema="Grade" tableName="grade"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="grad_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table> -->
+ <!--    <table alias="user_project"  schema="UserProject" tableName="user_project"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="uspr_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table> -->
+<!--     <table alias="bug_dispose_info"  schema="BugDisposeInfo" tableName="bug_dispose_info"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="bdin_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table> -->
+<!--     <table alias="project_information"  schema="ProjectInformation" tableName="project_information"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="prin_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table> -->
+    <!-- <table alias="user_basic"  schema="UserBasic" tableName="user_basic"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="usba_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table> -->
+    <!--  <table alias="department"  schema="Department" tableName="department"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="depa_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    
+     <table alias="user_role"  schema="UserRole" tableName="user_role"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="usro_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+      <table alias="role"  schema="Role" tableName="role"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="role_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+      <table alias="document_check"  schema="DocumentCheck" tableName="document_check"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="doch_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+     -->
+    
+     <!--  <table alias="bumph"  schema="Bumph" tableName="bumph"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="bump_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table> -->
+     <!--  <table alias="bumph_audit"  schema="BumphAudit" tableName="bumph_audit"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="buau_id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table> -->
+    
+    <table alias="t_oa_attachment"   tableName="t_oa_attachment"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    
+    <table alias="t_oa_doctemplate"   tableName="t_oa_doctemplate"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    
+    <table alias="t_oa_tempbookmarks"   tableName="t_oa_tempbookmarks"  enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >
+    	<generatedKey column="id" sqlStatement="MYSQL" identity="true" type="post"/>
+    </table>
+    
+  </context>
+</generatorConfiguration>

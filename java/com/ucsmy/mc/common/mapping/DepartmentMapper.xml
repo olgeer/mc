@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.Department" >
+    <id column="department_depa_id" property="depaId" jdbcType="CHAR" />
+    <result column="department_depa_parent_id" property="depaParentId" jdbcType="CHAR" />
+    <result column="department_depa_name" property="depaName" jdbcType="VARCHAR" />
+    <result column="department_depa_description" property="depaDescription" jdbcType="VARCHAR" />
+    <result column="department_depa_modify_date" property="depaModifyDate" jdbcType="TIMESTAMP" />
+    <result column="department_depa_create_date" property="depaCreateDate" jdbcType="TIMESTAMP" />
+    <result column="department_depa_no" property="depaNo" jdbcType="VARCHAR" />
+    <result column="department_grad_id" property="gradId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    department.depa_id as department_depa_id, department.depa_parent_id as department_depa_parent_id, 
+    department.depa_name as department_depa_name, department.depa_description as department_depa_description, 
+    department.depa_modify_date as department_depa_modify_date, department.depa_create_date as department_depa_create_date, 
+    department.depa_no as department_depa_no, department.grad_id as department_grad_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from department department
+    where department.depa_id = #{depaId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from department
+    where depa_id = #{depaId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.Department" >
+    insert into department (depa_id, depa_parent_id, depa_name, 
+      depa_description, depa_modify_date, depa_create_date, 
+      depa_no, grad_id)
+    values (#{depaId,jdbcType=CHAR}, #{depaParentId,jdbcType=CHAR}, #{depaName,jdbcType=VARCHAR}, 
+      #{depaDescription,jdbcType=VARCHAR}, #{depaModifyDate,jdbcType=TIMESTAMP}, #{depaCreateDate,jdbcType=TIMESTAMP}, 
+      #{depaNo,jdbcType=VARCHAR}, #{gradId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.Department" >
+    insert into department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="depaId != null" >
+        depa_id,
+      </if>
+      <if test="depaParentId != null" >
+        depa_parent_id,
+      </if>
+      <if test="depaName != null" >
+        depa_name,
+      </if>
+      <if test="depaDescription != null" >
+        depa_description,
+      </if>
+      <if test="depaModifyDate != null" >
+        depa_modify_date,
+      </if>
+      <if test="depaCreateDate != null" >
+        depa_create_date,
+      </if>
+      <if test="depaNo != null" >
+        depa_no,
+      </if>
+      <if test="gradId != null" >
+        grad_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="depaId != null" >
+        #{depaId,jdbcType=CHAR},
+      </if>
+      <if test="depaParentId != null" >
+        #{depaParentId,jdbcType=CHAR},
+      </if>
+      <if test="depaName != null" >
+        #{depaName,jdbcType=VARCHAR},
+      </if>
+      <if test="depaDescription != null" >
+        #{depaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="depaModifyDate != null" >
+        #{depaModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depaCreateDate != null" >
+        #{depaCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depaNo != null" >
+        #{depaNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gradId != null" >
+        #{gradId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.Department" >
+    update department
+    <set >
+      <if test="depaParentId != null" >
+        depa_parent_id = #{depaParentId,jdbcType=CHAR},
+      </if>
+      <if test="depaName != null" >
+        depa_name = #{depaName,jdbcType=VARCHAR},
+      </if>
+      <if test="depaDescription != null" >
+        depa_description = #{depaDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="depaModifyDate != null" >
+        depa_modify_date = #{depaModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depaCreateDate != null" >
+        depa_create_date = #{depaCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="depaNo != null" >
+        depa_no = #{depaNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gradId != null" >
+        grad_id = #{gradId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where depa_id = #{depaId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.Department" >
+    update department
+    set depa_parent_id = #{depaParentId,jdbcType=CHAR},
+      depa_name = #{depaName,jdbcType=VARCHAR},
+      depa_description = #{depaDescription,jdbcType=VARCHAR},
+      depa_modify_date = #{depaModifyDate,jdbcType=TIMESTAMP},
+      depa_create_date = #{depaCreateDate,jdbcType=TIMESTAMP},
+      depa_no = #{depaNo,jdbcType=VARCHAR},
+      grad_id = #{gradId,jdbcType=INTEGER}
+    where depa_id = #{depaId,jdbcType=CHAR}
+  </update>
+</mapper>

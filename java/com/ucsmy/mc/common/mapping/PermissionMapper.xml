@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.Permission" >
+    <id column="permission_perm_id" property="permId" jdbcType="CHAR" />
+    <result column="permission_perm_parent_id" property="permParentId" jdbcType="CHAR" />
+    <result column="permission_perm_name" property="permName" jdbcType="VARCHAR" />
+    <result column="permission_perm_describe" property="permDescribe" jdbcType="VARCHAR" />
+    <result column="permission_perm_url" property="permUrl" jdbcType="VARCHAR" />
+    <result column="permission_perm_icon" property="permIcon" jdbcType="VARCHAR" />
+    <result column="permission_perm_resource" property="permResource" jdbcType="VARCHAR" />
+    <result column="permission_perm_modify_date" property="permModifyDate" jdbcType="TIMESTAMP" />
+    <result column="permission_perm_create_date" property="permCreateDate" jdbcType="TIMESTAMP" />
+    <result column="permission_perm_sort" property="permSort" jdbcType="TINYINT" />
+    <result column="permission_perm_use_status" property="permUseStatus" jdbcType="TINYINT" />
+    <result column="permission_perm_type" property="permType" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    permission.perm_id as permission_perm_id, permission.perm_parent_id as permission_perm_parent_id, 
+    permission.perm_name as permission_perm_name, permission.perm_describe as permission_perm_describe, 
+    permission.perm_url as permission_perm_url, permission.perm_icon as permission_perm_icon, 
+    permission.perm_resource as permission_perm_resource, permission.perm_modify_date as permission_perm_modify_date, 
+    permission.perm_create_date as permission_perm_create_date, permission.perm_sort as permission_perm_sort, 
+    permission.perm_use_status as permission_perm_use_status, permission.perm_type as permission_perm_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from permission permission
+    where permission.perm_id = #{permId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from permission
+    where perm_id = #{permId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.Permission" >
+    insert into permission (perm_id, perm_parent_id, perm_name, 
+      perm_describe, perm_url, perm_icon, 
+      perm_resource, perm_modify_date, perm_create_date, 
+      perm_sort, perm_use_status, perm_type
+      )
+    values (#{permId,jdbcType=CHAR}, #{permParentId,jdbcType=CHAR}, #{permName,jdbcType=VARCHAR}, 
+      #{permDescribe,jdbcType=VARCHAR}, #{permUrl,jdbcType=VARCHAR}, #{permIcon,jdbcType=VARCHAR}, 
+      #{permResource,jdbcType=VARCHAR}, #{permModifyDate,jdbcType=TIMESTAMP}, #{permCreateDate,jdbcType=TIMESTAMP}, 
+      #{permSort,jdbcType=TINYINT}, #{permUseStatus,jdbcType=TINYINT}, #{permType,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.Permission" >
+    insert into permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permId != null" >
+        perm_id,
+      </if>
+      <if test="permParentId != null" >
+        perm_parent_id,
+      </if>
+      <if test="permName != null" >
+        perm_name,
+      </if>
+      <if test="permDescribe != null" >
+        perm_describe,
+      </if>
+      <if test="permUrl != null" >
+        perm_url,
+      </if>
+      <if test="permIcon != null" >
+        perm_icon,
+      </if>
+      <if test="permResource != null" >
+        perm_resource,
+      </if>
+      <if test="permModifyDate != null" >
+        perm_modify_date,
+      </if>
+      <if test="permCreateDate != null" >
+        perm_create_date,
+      </if>
+      <if test="permSort != null" >
+        perm_sort,
+      </if>
+      <if test="permUseStatus != null" >
+        perm_use_status,
+      </if>
+      <if test="permType != null" >
+        perm_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permId != null" >
+        #{permId,jdbcType=CHAR},
+      </if>
+      <if test="permParentId != null" >
+        #{permParentId,jdbcType=CHAR},
+      </if>
+      <if test="permName != null" >
+        #{permName,jdbcType=VARCHAR},
+      </if>
+      <if test="permDescribe != null" >
+        #{permDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="permUrl != null" >
+        #{permUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="permIcon != null" >
+        #{permIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="permResource != null" >
+        #{permResource,jdbcType=VARCHAR},
+      </if>
+      <if test="permModifyDate != null" >
+        #{permModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permCreateDate != null" >
+        #{permCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permSort != null" >
+        #{permSort,jdbcType=TINYINT},
+      </if>
+      <if test="permUseStatus != null" >
+        #{permUseStatus,jdbcType=TINYINT},
+      </if>
+      <if test="permType != null" >
+        #{permType,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.Permission" >
+    update permission
+    <set >
+      <if test="permParentId != null" >
+        perm_parent_id = #{permParentId,jdbcType=CHAR},
+      </if>
+      <if test="permName != null" >
+        perm_name = #{permName,jdbcType=VARCHAR},
+      </if>
+      <if test="permDescribe != null" >
+        perm_describe = #{permDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="permUrl != null" >
+        perm_url = #{permUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="permIcon != null" >
+        perm_icon = #{permIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="permResource != null" >
+        perm_resource = #{permResource,jdbcType=VARCHAR},
+      </if>
+      <if test="permModifyDate != null" >
+        perm_modify_date = #{permModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permCreateDate != null" >
+        perm_create_date = #{permCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="permSort != null" >
+        perm_sort = #{permSort,jdbcType=TINYINT},
+      </if>
+      <if test="permUseStatus != null" >
+        perm_use_status = #{permUseStatus,jdbcType=TINYINT},
+      </if>
+      <if test="permType != null" >
+        perm_type = #{permType,jdbcType=TINYINT},
+      </if>
+    </set>
+    where perm_id = #{permId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.Permission" >
+    update permission
+    set perm_parent_id = #{permParentId,jdbcType=CHAR},
+      perm_name = #{permName,jdbcType=VARCHAR},
+      perm_describe = #{permDescribe,jdbcType=VARCHAR},
+      perm_url = #{permUrl,jdbcType=VARCHAR},
+      perm_icon = #{permIcon,jdbcType=VARCHAR},
+      perm_resource = #{permResource,jdbcType=VARCHAR},
+      perm_modify_date = #{permModifyDate,jdbcType=TIMESTAMP},
+      perm_create_date = #{permCreateDate,jdbcType=TIMESTAMP},
+      perm_sort = #{permSort,jdbcType=TINYINT},
+      perm_use_status = #{permUseStatus,jdbcType=TINYINT},
+      perm_type = #{permType,jdbcType=TINYINT}
+    where perm_id = #{permId,jdbcType=CHAR}
+  </update>
+</mapper>

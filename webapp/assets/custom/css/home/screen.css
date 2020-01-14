@@ -1,0 +1,101 @@
+
+/*styles for 1440px and up @ 16px!*/
+/* The max-width declaration below blocks this from ever working */
+@media only screen and (min-width: 1440px) {
+	
+.con-r .map_head_con ul li em{
+	width:60px;
+}
+.con-r .map_head_con ul li{
+	width:158px;
+}
+ select {
+	width:280px;
+	height:25px;
+	overflow:hidden
+	
+}
+}
+/*styles for 1360px - 1440px @ 16px!*/
+  @media screen and (min-width: 1360px) and (max-width: 1440px) {
+	  
+.con-r .map_head_con ul li em{
+	width:50px;
+}
+.con-r .map_head_con ul li{
+	width:145px;
+}
+ .inputstyle{
+	 width:135px; 
+	 }
+ select {
+	/*width:260px;*/
+	width:240px;
+	height:25px;
+	overflow:hidden
+}
+	  
+	  }
+/*styles for 1281px - 1360px @ 16px!*/	  
+ @media screen and (min-width: 1281px) and (max-width: 1360px) {
+
+.con-r .map_head_con ul li em{
+	width:45px;
+}
+.con-r .map_head_con ul li{
+	width:140px;
+}
+.inputstyle{
+	 width:130px; 
+}
+ select {
+	width:235px;
+	height:25px;
+	overflow:hidden
+}
+}
+/*styles for 1025px - 1281px @ 16px!*/	  
+ @media screen and (min-width: 1025px) and (max-width: 1281px) {
+	 
+.con-r .map_head_con ul li em{
+	width:40px;
+}
+.con-r .map_head_con ul li{
+	width:115px;
+}
+
+.inputstyle{
+	 width:90px; 
+}
+
+ select {
+	width:160px;
+	height:25px;
+	overflow:hidden
+}
+
+
+}
+
+/*styles for 1024px  @ 16px!*/	
+@media only screen and (max-width: 1024px) {
+/*.inputstyle{ width:100px;}*/	
+
+.con-r .map_head_con ul li em{
+	width:30px;
+}
+.con-r .map_head_con ul li{
+	width:95px;
+}
+.inputstyle{
+	 width:60px; 
+}
+
+select {
+	width:105px;
+	height:25px;
+	overflow:hidden
+}
+
+ 
+}

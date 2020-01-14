@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.cmdb.mapper.CmdbNetworkIpMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.module.cmdb.entity.CmdbNetworkIp" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="netmask" property="netmask" jdbcType="VARCHAR" />
+    <result column="gateway" property="gateway" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="belongs_ip_pool_id" property="belongsIpPoolId" jdbcType="INTEGER" />
+    <result column="belongs_platform_id" property="belongsPlatformId" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="in_use" property="inUse" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ip, netmask, gateway, remarks, belongs_ip_pool_id, belongs_platform_id, status, 
+    in_use
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cmdb_network_ip
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cmdb_network_ip
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.module.cmdb.entity.CmdbNetworkIp" >
+    insert into cmdb_network_ip (id, ip, netmask, 
+      gateway, remarks, belongs_ip_pool_id, 
+      belongs_platform_id, status, in_use
+      )
+    values (#{id,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{netmask,jdbcType=VARCHAR}, 
+      #{gateway,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{belongsIpPoolId,jdbcType=INTEGER}, 
+      #{belongsPlatformId,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{inUse,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.module.cmdb.entity.CmdbNetworkIp" >
+    insert into cmdb_network_ip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="netmask != null" >
+        netmask,
+      </if>
+      <if test="gateway != null" >
+        gateway,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="belongsIpPoolId != null" >
+        belongs_ip_pool_id,
+      </if>
+      <if test="belongsPlatformId != null" >
+        belongs_platform_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="inUse != null" >
+        in_use,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="netmask != null" >
+        #{netmask,jdbcType=VARCHAR},
+      </if>
+      <if test="gateway != null" >
+        #{gateway,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="belongsIpPoolId != null" >
+        #{belongsIpPoolId,jdbcType=INTEGER},
+      </if>
+      <if test="belongsPlatformId != null" >
+        #{belongsPlatformId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="inUse != null" >
+        #{inUse,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.module.cmdb.entity.CmdbNetworkIp" >
+    update cmdb_network_ip
+    <set >
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="netmask != null" >
+        netmask = #{netmask,jdbcType=VARCHAR},
+      </if>
+      <if test="gateway != null" >
+        gateway = #{gateway,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="belongsIpPoolId != null" >
+        belongs_ip_pool_id = #{belongsIpPoolId,jdbcType=INTEGER},
+      </if>
+      <if test="belongsPlatformId != null" >
+        belongs_platform_id = #{belongsPlatformId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="inUse != null" >
+        in_use = #{inUse,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.module.cmdb.entity.CmdbNetworkIp" >
+    update cmdb_network_ip
+    set ip = #{ip,jdbcType=VARCHAR},
+      netmask = #{netmask,jdbcType=VARCHAR},
+      gateway = #{gateway,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      belongs_ip_pool_id = #{belongsIpPoolId,jdbcType=INTEGER},
+      belongs_platform_id = #{belongsPlatformId,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT},
+      in_use = #{inUse,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

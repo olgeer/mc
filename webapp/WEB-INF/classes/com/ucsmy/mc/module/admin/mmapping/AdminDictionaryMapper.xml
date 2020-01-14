@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.admin.mmapper.AdminDictionaryMapper">
+<!--查询全部列表  -->
+   <select id="selectDictionaryList" resultMap="com.ucsmy.mc.common.mapper.DictionaryMapper.BaseResultMap"  >
+    select 
+    <include refid="com.ucsmy.mc.common.mapper.DictionaryMapper.Base_Column_List" />
+    from dictionary
+  </select>
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.exmapper.ExUserRoleMapper">
+	<resultMap id="UserRoleResultMap" type="com.ucsmy.mc.common.entity.UserRole" extends="com.ucsmy.mc.common.mapper.UserRoleMapper.BaseResultMap">
+	  	<association property="usroUserBasic" resultMap="com.ucsmy.mc.common.mapper.UserBasicMapper.BaseResultMap"/>
+	  	<association property="usroRole" resultMap="com.ucsmy.mc.common.mapper.RoleMapper.BaseResultMap"/>
+	  	<association property="grade" resultMap="com.ucsmy.mc.common.mapper.GradeMapper.BaseResultMap"/>
+	</resultMap>
+	
+	<select id="selectUserRoleByUsbaId" resultMap="UserRoleResultMap">
+		SELECT
+		<include refid="com.ucsmy.mc.common.mapper.UserRoleMapper.Base_Column_List"/>,
+		<include refid="com.ucsmy.mc.common.mapper.UserBasicMapper.Base_Column_List"/>,
+		<include refid="com.ucsmy.mc.common.mapper.RoleMapper.Base_Column_List"/>,
+		grade.grad_id,
+		grade.grad_grade_no,
+		grade.grad_grade_name,
+		grade.grad_type
+		FROM user_role 
+		INNER JOIN user_basic
+		ON user_role.usba_id = user_basic.usba_id
+		INNER JOIN role
+		ON user_role.role_id = role.role_id
+		INNER JOIN grade 
+		ON grade.grad_id=role.grad_id
+		WHERE user_basic.usba_id=#{usbaId,jdbcType=CHAR}
+		AND user_role.usro_status = 2
+		ORDER BY  grade.grad_grade_no ASC
+	</select>
+	
+	<select id="selectUserRoleListByUsroIds" resultMap="UserRoleResultMap">
+		SELECT
+		<include refid="com.ucsmy.mc.common.mapper.UserRoleMapper.Base_Column_List"/>,
+		<include refid="com.ucsmy.mc.common.mapper.UserBasicMapper.Base_Column_List"/>,
+		<include refid="com.ucsmy.mc.common.mapper.RoleMapper.Base_Column_List"/>
+		FROM user_role 
+		INNER JOIN user_basic
+		ON user_role.usba_id = user_basic.usba_id
+		INNER JOIN role
+		ON user_role.role_id = role.role_id
+		WHERE user_role.usro_id IN
+		<choose>
+			<when test="list !=null and list.size > 0">
+				<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+					#{item, jdbcType=CHAR}
+				</foreach>
+	    	</when>
+			<otherwise>
+				(-1)
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selectUserRoleByUsroId" resultMap="UserRoleResultMap">
+		SELECT
+		<include refid="com.ucsmy.mc.common.mapper.UserRoleMapper.Base_Column_List"/>,
+		<include refid="com.ucsmy.mc.common.mapper.UserBasicMapper.Base_Column_List"/>,
+		<include refid="com.ucsmy.mc.common.mapper.RoleMapper.Base_Column_List"/>
+		FROM user_role 
+		INNER JOIN user_basic
+		ON user_role.usba_id = user_basic.usba_id
+		INNER JOIN role
+		ON user_role.role_id = role.role_id
+		WHERE user_role.usro_id=#{usroId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectUserRoleByDepaIdAndRoleId" resultType="java.util.Map">
+		SELECT 
+			usro_id,
+			usba_id
+		FROM user_role
+		WHERE depa_id = #{depaId,jdbcType=INTEGER}
+		AND role_id = #{roleId,jdbcType=INTEGER}
+		AND usro_status = 1
+	</select>
+	
+	<!-- Start Delete -->
+	<delete id="batchDeleteUserRole" parameterType = "java.util.List">
+		 DELETE from user_role where usro_id IN 
+	    <foreach collection="list" item = "usroId" open="(" separator="," close=")">
+	    	#{usroId}
+	    </foreach>
+	</delete>
+	<!-- End Delete -->
+	
+	<!-- Start Insert -->
+	<insert id="batchInsertUserRoles" useGeneratedKeys="true" keyProperty="firstUsroId" keyColumn="usro_id" >
+		 INSERT INTO user_role
+		    	(
+		        role_id,
+		        usba_id,
+		        depa_id,
+		        usro_modify_date,
+		        usro_create_date,
+		        usro_status)
+		     values 
+			<foreach collection="userRoles" item="userRole" index="index" separator=","  >
+		       (
+		        #{userRole.roleId,jdbcType=INTEGER},
+		        #{userRole.usbaId,jdbcType=INTEGER},
+		        #{userRole.depaId,jdbcType=INTEGER},
+		        #{userRole.usroModifyDate,jdbcType=TIMESTAMP},
+		        #{userRole.usroCreateDate,jdbcType=TIMESTAMP},
+		        #{userRole.usroStatus,jdbcType=TINYINT}
+		        )
+		</foreach>
+	</insert>
+	<!-- End Insert -->
+	
+	
+</mapper>

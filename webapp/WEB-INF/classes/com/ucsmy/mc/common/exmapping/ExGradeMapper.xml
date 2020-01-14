@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.exmapper.ExGradeMapper" >
+ <select id="getAllGrade" resultMap="com.ucsmy.mc.common.mapper.GradeMapper.BaseResultMap" parameterType="java.util.Map">
+	SELECT 
+	<include refid="com.ucsmy.mc.common.mapper.GradeMapper.Base_Column_List"/>
+	FROM grade
+ </select>
+</mapper>

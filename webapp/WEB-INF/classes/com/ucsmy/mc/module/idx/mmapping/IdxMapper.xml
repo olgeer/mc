@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.idx.mmapper.IdxMapper">
+
+    <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.Mctype">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="iname" property="iname" jdbcType="VARCHAR"/>
+        <result column="imark" property="imark" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="ilevel" property="ilevel" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        tb_mc_itype.id as id,
+        tb_mc_itype.iname as iname,
+        tb_mc_itype.imark as imark,
+        tb_mc_itype.status as status,
+        tb_mc_itype.ilevel as ilevel
+    </sql>
+    <select id="selectIdxByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_mc_itype tb_mc_itype
+        where tb_mc_itype.id = #{id,jdbcType=CHAR}
+    </select>
+
+    <!--表格查询 -->
+    <select id="getIdxList" resultType="java.util.Map">
+		SELECT * from tb_mc_itype mctype
+		where 1=1
+        <if test="iname!=null">
+            AND mctype.iname  LIKE CONCAT(CONCAT('%', #{iname,jdbcType=VARCHAR}),'%')
+        </if>
+        <if test="imark!=null">
+            AND mctype.imark  LIKE CONCAT(CONCAT('%', #{imark,jdbcType=VARCHAR}),'%')
+        </if>
+		ORDER  by mctype.id  DESC
+	</select>
+
+
+    <!--添加记录-->
+    <insert id="insertIdxSelective" parameterType="com.ucsmy.mc.common.entity.Mctype">
+        insert into tb_mc_itype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="iname != null">
+                iname,
+            </if>
+            <if test="imark != null">
+                imark,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="ilevel != null">
+                ilevel,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="iname != null">
+                #{iname,jdbcType=VARCHAR},
+            </if>
+            <if test="imark != null">
+                #{imark,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="ilevel != null">
+                #{ilevel,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+
+
+
+    <update id="updateIdx" parameterType="com.ucsmy.mc.common.entity.Mctype">
+        UPDATE tb_mc_itype
+        SET iname = #{iname,jdbcType=VARCHAR}
+          , imark = #{imark,jdbcType=VARCHAR},
+           status = #{status,jdbcType=TINYINT},
+          iname = #{ilevel,jdbcType=TINYINT}
+        WHERE id = #{id}
+    </update>
+
+
+    <delete id="DeleteIdxByID" parameterType = "java.lang.Integer">
+        DELETE from tb_mc_itype where id  = #{id}
+    </delete>
+
+
+
+
+    <delete id="batchDeleteIdxByIds">
+        DELETE FROM tb_mc_itype
+        WHERE tb_mc_itype.id IN
+
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <!--<foreach collection="list"   index="index" open="(" separator="," close=")">-->
+            <!--#{id, jdbcType=TINYINT}-->
+        <!--</foreach>-->
+    </delete>
+
+
+</mapper>

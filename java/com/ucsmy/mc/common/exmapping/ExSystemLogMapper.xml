@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.exmapper.ExSystemLogMapper" >
+	<!-- 批量插入操作 -->
+	 <insert id ="bathInsertSystemLog" parameterType="java.util.List" >
+	insert ignore into system_log
+	(
+	sylo_id, sylo_method_name,
+	sylo_method_description,
+	sylo_method_type, sylo_type,sylo_ip,
+	sylo_exception_code, sylo_exception_detail,
+	sylo_params, sylo_usro_id, sylo_usro_name,
+	sylo_role_name, sylo_create_date, sylo_module_name,
+	sylo_module_description, sylo_sql, sylo_own
+	)
+	values
+             <foreach collection ="list" item="systemLog" open="(" separator="," close=")">
+
+	#{systemLog.syloId,jdbcType=VARCHAR},
+	#{systemLog.syloMethodName,jdbcType=VARCHAR},
+	#{systemLog.syloMethodDescription,jdbcType=VARCHAR},
+	#{systemLog.syloMethodType,jdbcType=VARCHAR},
+	#{systemLog.syloType,jdbcType=TINYINT},
+	#{systemLog.syloIp,jdbcType=VARCHAR},
+	#{systemLog.syloExceptionCode,jdbcType=VARCHAR},
+	#{systemLog.syloExceptionDetail,jdbcType=VARCHAR},
+	#{systemLog.syloParams,jdbcType=VARCHAR},
+	#{systemLog.syloUsroId,jdbcType=VARCHAR},
+	#{systemLog.syloUsroName,jdbcType=VARCHAR},
+	#{systemLog.syloRoleName,jdbcType=VARCHAR},
+	#{systemLog.syloCreateDate,jdbcType=TIMESTAMP},
+	#{systemLog.syloModuleName,jdbcType=VARCHAR},
+	#{systemLog.syloModuleDescription,jdbcType=VARCHAR},
+	#{systemLog.syloSql,jdbcType=VARCHAR},
+	#{systemLog.syloOwn,jdbcType=TINYINT}
+             
+            </foreach >
+            
+     </insert >
+</mapper>

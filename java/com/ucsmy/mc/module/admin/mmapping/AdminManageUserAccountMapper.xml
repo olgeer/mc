@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.admin.mmapper.AdminManageUserAccountMapper">
+
+	<select id="selectUserAccountList" resultType="java.util.Map">
+		SELECT 
+			user_basic.usba_id,
+			department.depa_name,
+			department.grad_id,
+			user_basic.usba_account,
+			user_basic.usba_name,
+			user_basic.usba_account_enable,
+			user_basic_superior.usba_name as superior_name,
+			user_basic.usba_account_locked
+		FROM user_basic
+	    LEFT JOIN department 
+		ON department.depa_id=user_basic.depa_id
+		LEFT JOIN user_basic user_basic_superior ON user_basic_superior.usba_id=user_basic.usba_superior_id
+		WHERE  1=1
+		<if test="depa_name != null">
+			AND department.depa_name  LIKE CONCAT(CONCAT('%', #{depa_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="usba_account != null">
+			AND user_basic.usba_account  LIKE CONCAT(CONCAT('%', #{usba_account,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="usba_name !=null">
+			AND user_basic.usba_name  LIKE CONCAT(CONCAT('%', #{usba_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="superior_name !=null">
+			AND user_basic_superior.usba_name  LIKE CONCAT(CONCAT('%', #{superior_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="usba_account_locked !=null">
+			AND user_basic.usba_account_locked = #{usba_account_locked ,jdbcType=TINYINT}
+		</if>
+		<if test="usba_account_enable !=null">
+			AND user_basic.usba_account_enable = #{usba_account_enable ,jdbcType=TINYINT}
+		</if>
+	</select>
+	
+	<select id="selectUserDetailsByUsbaId" resultType="java.util.HashMap" parameterType="java.lang.String">
+		SELECT
+			user_basic.usba_id,
+			user_basic.usba_name,
+			user_basic.usba_account,
+			user_basic.usba_failure_count,
+			user_basic.usba_credential_expired,
+			user_basic.usba_account_expired,
+			user_basic.usba_account_enable,
+			user_basic.usba_account_locked,
+			user_basic.usba_create_date,
+			user_basic.usba_superior_id,
+			department.depa_id,
+			department.depa_name,
+			user_basic_superior.usba_account as superior_account,
+			user_basic_superior.usba_name as superior_name,
+			grade.grad_grade_no AS grad_id
+		FROM user_basic
+		LEFT JOIN department ON department.depa_id = user_basic.depa_id
+		LEFT JOIN grade ON grade.grad_id = department.grad_id
+        LEFT JOIN user_basic user_basic_superior ON user_basic_superior.usba_id=user_basic.usba_superior_id
+		WHERE user_basic.usba_id = #{usbaId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectUserRoleByUsbaId" resultType="java.util.HashMap" parameterType="java.lang.String">
+		SELECT
+		user_role.usro_id,
+		user_role.usro_status,
+		user_role.usro_create_date,
+		role.role_name
+		FROM user_role
+		INNER JOIN role ON role.role_id = user_role.role_id
+		WHERE user_role.usba_id = #{stbaId,jdbcType=INTEGER}
+	</select>
+	
+	<update id="updateUserBasicEnableByUsbaIds" parameterType="java.util.Map">
+		UPDATE user_basic
+		SET user_basic.usba_account_enable = #{usbaAccountEnable,jdbcType=TINYINT}
+		WHERE 1=1
+		<if test="usbaIds != null">
+			AND user_basic.usba_id IN
+			<foreach collection="usbaIds" item="usbaId" index="index" open="(" separator="," close=")">
+				#{usbaId,jdbcType=CHAR}
+			</foreach>
+		</if>
+	</update>
+	
+	<update id="updateUserRoleStatusByUsroIds" parameterType="java.util.Map">
+		UPDATE user_role
+		SET user_role.usro_status = #{status,jdbcType=TINYINT}
+		WHERE 1=1
+		<if test="usroIds != null">
+			AND user_role.usro_id IN
+			<foreach collection="usroIds" item="usroId" index="index" open="(" separator="," close=")">
+				#{usroId,jdbcType=CHAR}
+			</foreach>
+		</if>
+	</update>
+	
+	<update id="batchUpdateUserAccountEnableByUsbaIds" parameterType="java.util.Map">
+		UPDATE user_basic
+		SET user_basic.usba_account_enable = #{enableStatus,jdbcType=TINYINT}
+		WHERE 1=1
+		<if test="usbaIds != null">
+			AND user_basic.usba_id IN
+			<foreach collection="usbaIds" item="usbaId" index="index" open="(" separator="," close=")">
+				#{usbaId,jdbcType=CHAR}
+			</foreach>
+		</if>
+	</update>
+	
+	<!-- Start Insert -->
+	<insert id="batchInsertUserBasic">
+		 INSERT INTO user_basic
+			       (
+			        usba_account,
+			        usba_name,
+			        usba_password,
+			        usba_sex,
+			        depa_id,
+			        usba_professional_title,
+			        usba_nation,
+			        usba_degree,
+			        usba_education_background,
+			        usba_position,
+			        usba_create_date
+			       )
+			    values 
+				<foreach collection="userBasicJoinExcels" item="userBasicJoinExcel" index="index"  separator="," >
+			    <trim prefix=" (" suffix=")" suffixOverrides="," >
+			      	#{userBasicJoinExcel.tebaNo},
+			        #{userBasicJoinExcel.tebaName},
+			        #{tebaPassword},
+			        #{userBasicJoinExcel.tebaSex},
+			        (
+			    	 	SELECT depa_id FROM department 
+			    	 	WHERE department.depa_year = #{currentYear,jdbcType=SMALLINT}
+			    	 	AND department.depa_no=#{userBasicJoinExcel.depaNo,jdbcType=VARCHAR}
+			    	 ),
+			        #{userBasicJoinExcel.tebaPoliticsStatus},
+			        #{userBasicJoinExcel.tebaNation},
+			        #{userBasicJoinExcel.tebaDegree},
+			        #{userBasicJoinExcel.tebaEducationBackground},
+			        #{userBasicJoinExcel.tebaPosition},
+			        #{tebaCreateDate}
+			    </trim>
+		</foreach>
+	</insert>	
+	<!-- End Insert -->
+	
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.admin.mmapper.AdminUserRoleMapper">
+
+	<select id="selectUserRoleList" resultType="java.util.Map">
+		SELECT
+			user_role.usro_id,
+			user_basic.usba_name,
+			user_basic.usba_account,
+			role.role_name,
+			department.depa_name,
+			user_role.role_id,
+			user_role.usba_id,
+			usro_status
+		FROM
+			user_basic
+		INNER JOIN user_role ON user_role.usba_id = user_basic.usba_id
+		INNER JOIN role ON role.role_id = user_role.role_id 
+		INNER JOIN department ON user_basic.depa_id=department.depa_id
+		WHERE role.role_use_status=1
+		<if test="depa_name != null">
+			AND department.depa_name  LIKE CONCAT(CONCAT('%', #{depa_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="usba_account != null">
+			AND user_basic.usba_account  LIKE CONCAT(CONCAT('%', #{usba_account,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="usba_name !=null">
+			AND user_basic.usba_name  LIKE CONCAT(CONCAT('%', #{usba_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="role_name !=null">
+			AND role.role_name  LIKE CONCAT(CONCAT('%', #{role_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="usro_status !=null">
+			AND user_role.usro_status = #{usro_status ,jdbcType=TINYINT}
+		</if>
+		<if test="role_id !=null">
+			AND user_role.role_id = #{role_id ,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+</mapper>

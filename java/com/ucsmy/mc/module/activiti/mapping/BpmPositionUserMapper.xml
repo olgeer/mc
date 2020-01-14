@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.activiti.mapper.BpmPositionUserMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.module.activiti.entity.BpmPositionUser" >
+    <id column="bpus_id" property="bpusId" jdbcType="CHAR" />
+    <result column="bppo_id" property="bppoId" jdbcType="CHAR" />
+    <result column="usba_id" property="usbaId" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bpus_id, bppo_id, usba_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bpm_position_user
+    where bpus_id = #{bpusId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bpm_position_user
+    where bpus_id = #{bpusId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.module.activiti.entity.BpmPositionUser" >
+    insert into bpm_position_user (bpus_id, bppo_id, usba_id
+      )
+    values (#{bpusId,jdbcType=CHAR}, #{bppoId,jdbcType=CHAR}, #{usbaId,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.module.activiti.entity.BpmPositionUser" >
+    insert into bpm_position_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bpusId != null" >
+        bpus_id,
+      </if>
+      <if test="bppoId != null" >
+        bppo_id,
+      </if>
+      <if test="usbaId != null" >
+        usba_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bpusId != null" >
+        #{bpusId,jdbcType=CHAR},
+      </if>
+      <if test="bppoId != null" >
+        #{bppoId,jdbcType=CHAR},
+      </if>
+      <if test="usbaId != null" >
+        #{usbaId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.module.activiti.entity.BpmPositionUser" >
+    update bpm_position_user
+    <set >
+      <if test="bppoId != null" >
+        bppo_id = #{bppoId,jdbcType=CHAR},
+      </if>
+      <if test="usbaId != null" >
+        usba_id = #{usbaId,jdbcType=CHAR},
+      </if>
+    </set>
+    where bpus_id = #{bpusId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.module.activiti.entity.BpmPositionUser" >
+    update bpm_position_user
+    set bppo_id = #{bppoId,jdbcType=CHAR},
+      usba_id = #{usbaId,jdbcType=CHAR}
+    where bpus_id = #{bpusId,jdbcType=CHAR}
+  </update>
+  
+  <select id="selectPositionIdListByUsbaId" resultType="string">
+  	SELECT bppo_id FROM bpm_position_user WHERE usba_id = #{usbaId}
+  </select>
+  
+  <insert id="batchInsert">
+    insert into bpm_position_user (bpus_id, bppo_id, usba_id)
+    values 
+    <foreach item="item" collection="list" separator=",">
+    (#{item.bpusId,jdbcType=CHAR}, #{item.bppoId,jdbcType=CHAR}, #{item.usbaId,jdbcType=CHAR})
+    </foreach>
+  </insert>
+  
+  <delete id="deleteByUsbaId">
+    delete from bpm_position_user
+    where usba_id = #{usbaId}
+  </delete>
+  
+  <delete id="deleteByUsbaIdAndBppoId">
+    delete from bpm_position_user
+    where usba_id = #{param1} and bppo_id in
+    <foreach item="item" index="index" collection="param2" open="(" separator="," close=")">
+        #{item}
+  	</foreach>
+  </delete>
+  
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.GradeMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.Grade" >
+    <id column="grad_id" property="gradId" jdbcType="CHAR" />
+    <result column="grad_grade_no" property="gradGradeNo" jdbcType="VARCHAR" />
+    <result column="grad_grade_name" property="gradGradeName" jdbcType="VARCHAR" />
+    <result column="grad_type" property="gradType" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    grad_id, grad_grade_no, grad_grade_name, grad_type
+  </sql>
+  <!--高级查询页面  -->
+  <select id="selectGradeList" resultType="java.util.Map">
+   select 
+    <include refid="Base_Column_List" />
+    from grade 
+    	<where>
+		<if test="grad_grade_no!=null">
+			AND grad_grade_no  LIKE CONCAT(CONCAT('%', #{grad_grade_no,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="grad_grade_name!=null">
+			AND grad_grade_name  LIKE CONCAT(CONCAT('%', #{grad_grade_name,jdbcType=VARCHAR}),'%')
+		</if>
+		<if test="grad_type!=null">
+			AND grad_type LIKE CONCAT(CONCAT('%', #{grad_type,jdbcType=TINYINT}),'%')
+		</if>
+		</where>
+		ORDER BY grad_grade_no ASC
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where grad_id = #{gradId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from grade
+    where grad_id = #{gradId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.Grade" >
+    insert into grade (grad_id, grad_grade_no, grad_grade_name, 
+      grad_type)
+    values (#{gradId,jdbcType=CHAR}, #{gradGradeNo,jdbcType=VARCHAR}, #{gradGradeName,jdbcType=VARCHAR}, 
+      #{gradType,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.Grade" >
+    insert into grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradId != null" >
+        grad_id,
+      </if>
+      <if test="gradGradeNo != null" >
+        grad_grade_no,
+      </if>
+      <if test="gradGradeName != null" >
+        grad_grade_name,
+      </if>
+      <if test="gradType != null" >
+        grad_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradId != null" >
+        #{gradId,jdbcType=CHAR},
+      </if>
+      <if test="gradGradeNo != null" >
+        #{gradGradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gradGradeName != null" >
+        #{gradGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gradType != null" >
+        #{gradType,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.Grade" >
+    update grade
+    <set >
+      <if test="gradGradeNo != null" >
+        grad_grade_no = #{gradGradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gradGradeName != null" >
+        grad_grade_name = #{gradGradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="gradType != null" >
+        grad_type = #{gradType,jdbcType=TINYINT},
+      </if>
+    </set>
+    where grad_id = #{gradId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.Grade" >
+    update grade
+    set grad_grade_no = #{gradGradeNo,jdbcType=VARCHAR},
+      grad_grade_name = #{gradGradeName,jdbcType=VARCHAR},
+      grad_type = #{gradType,jdbcType=TINYINT}
+    where grad_id = #{gradId,jdbcType=CHAR}
+  </update>
+</mapper>

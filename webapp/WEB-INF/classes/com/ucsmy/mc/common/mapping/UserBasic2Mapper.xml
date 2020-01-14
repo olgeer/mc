@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.UserBasic2Mapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.UserBasic2" >
+    <id column="usba_id" property="usbaId" jdbcType="CHAR" />
+    <result column="depa_id" property="depaId" jdbcType="CHAR" />
+    <result column="usba_account" property="usbaAccount" jdbcType="VARCHAR" />
+    <result column="usba_name" property="usbaName" jdbcType="VARCHAR" />
+    <result column="usba_password" property="usbaPassword" jdbcType="VARCHAR" />
+    <result column="usba_failure_count" property="usbaFailureCount" jdbcType="TINYINT" />
+    <result column="usba_credential_expired" property="usbaCredentialExpired" jdbcType="TINYINT" />
+    <result column="usba_account_expired" property="usbaAccountExpired" jdbcType="TINYINT" />
+    <result column="usba_account_enable" property="usbaAccountEnable" jdbcType="TINYINT" />
+    <result column="usba_account_locked" property="usbaAccountLocked" jdbcType="TINYINT" />
+    <result column="usba_modify_date" property="usbaModifyDate" jdbcType="TIMESTAMP" />
+    <result column="usba_create_date" property="usbaCreateDate" jdbcType="TIMESTAMP" />
+    <result column="usba_superior_id" property="usbaSuperiorId" jdbcType="CHAR" />
+    <result column="usba_last_active_time" property="usbaLastActiveTime" jdbcType="TIMESTAMP" />
+    <result column="usba_credential_token" property="usbaCredentialToken" jdbcType="VARCHAR" />
+    <result column="usba_credential_ip" property="usbaCredentialIp" jdbcType="VARCHAR" />
+    <result column="usba_mail" property="usbaMail" jdbcType="VARCHAR" />
+    <result column="usba_phone" property="usbaPhone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    usba_id, depa_id, usba_account, usba_name, usba_password, usba_failure_count, usba_credential_expired, 
+    usba_account_expired, usba_account_enable, usba_account_locked, usba_modify_date, 
+    usba_create_date, usba_superior_id, usba_last_active_time, usba_credential_token, 
+    usba_credential_ip, usba_mail, usba_phone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_basic2
+    where usba_id = #{usbaId,jdbcType=CHAR}
+  </select>
+  <select id="selectUserBasisByDepaIdNUll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from user_basic2
+    where depa_id IS NULL
+  </select>
+  <!--根据用户名查出用户信息  -->
+   <select id="selectUserBasic2ByUsbaAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_basic2
+    where usba_account = #{usbaAccount,jdbcType=CHAR}
+  </select>
+  <!-- 用于OA数据添加 -->
+    <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from user_basic2
+   
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_basic2
+    where usba_id = #{usbaId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.UserBasic2" >
+    insert into user_basic2 (usba_id, depa_id, usba_account, 
+      usba_name, usba_password, usba_failure_count, 
+      usba_credential_expired, usba_account_expired, 
+      usba_account_enable, usba_account_locked, usba_modify_date, 
+      usba_create_date, usba_superior_id, usba_last_active_time, 
+      usba_credential_token, usba_credential_ip, 
+      usba_mail, usba_phone)
+    values (#{usbaId,jdbcType=CHAR}, #{depaId,jdbcType=CHAR}, #{usbaAccount,jdbcType=VARCHAR}, 
+      #{usbaName,jdbcType=VARCHAR}, #{usbaPassword,jdbcType=VARCHAR}, #{usbaFailureCount,jdbcType=TINYINT}, 
+      #{usbaCredentialExpired,jdbcType=TINYINT}, #{usbaAccountExpired,jdbcType=TINYINT}, 
+      #{usbaAccountEnable,jdbcType=TINYINT}, #{usbaAccountLocked,jdbcType=TINYINT}, #{usbaModifyDate,jdbcType=TIMESTAMP}, 
+      #{usbaCreateDate,jdbcType=TIMESTAMP}, #{usbaSuperiorId,jdbcType=CHAR}, #{usbaLastActiveTime,jdbcType=TIMESTAMP}, 
+      #{usbaCredentialToken,jdbcType=VARCHAR}, #{usbaCredentialIp,jdbcType=VARCHAR}, 
+      #{usbaMail,jdbcType=VARCHAR}, #{usbaPhone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.UserBasic2" >
+    insert into user_basic2
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usbaId != null" >
+        usba_id,
+      </if>
+      <if test="depaId != null" >
+        depa_id,
+      </if>
+      <if test="usbaAccount != null" >
+        usba_account,
+      </if>
+      <if test="usbaName != null" >
+        usba_name,
+      </if>
+      <if test="usbaPassword != null" >
+        usba_password,
+      </if>
+      <if test="usbaFailureCount != null" >
+        usba_failure_count,
+      </if>
+      <if test="usbaCredentialExpired != null" >
+        usba_credential_expired,
+      </if>
+      <if test="usbaAccountExpired != null" >
+        usba_account_expired,
+      </if>
+      <if test="usbaAccountEnable != null" >
+        usba_account_enable,
+      </if>
+      <if test="usbaAccountLocked != null" >
+        usba_account_locked,
+      </if>
+      <if test="usbaModifyDate != null" >
+        usba_modify_date,
+      </if>
+      <if test="usbaCreateDate != null" >
+        usba_create_date,
+      </if>
+      <if test="usbaSuperiorId != null" >
+        usba_superior_id,
+      </if>
+      <if test="usbaLastActiveTime != null" >
+        usba_last_active_time,
+      </if>
+      <if test="usbaCredentialToken != null" >
+        usba_credential_token,
+      </if>
+      <if test="usbaCredentialIp != null" >
+        usba_credential_ip,
+      </if>
+      <if test="usbaMail != null" >
+        usba_mail,
+      </if>
+      <if test="usbaPhone != null" >
+        usba_phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usbaId != null" >
+        #{usbaId,jdbcType=CHAR},
+      </if>
+      <if test="depaId != null" >
+        #{depaId,jdbcType=CHAR},
+      </if>
+      <if test="usbaAccount != null" >
+        #{usbaAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaName != null" >
+        #{usbaName,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaPassword != null" >
+        #{usbaPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaFailureCount != null" >
+        #{usbaFailureCount,jdbcType=TINYINT},
+      </if>
+      <if test="usbaCredentialExpired != null" >
+        #{usbaCredentialExpired,jdbcType=TINYINT},
+      </if>
+      <if test="usbaAccountExpired != null" >
+        #{usbaAccountExpired,jdbcType=TINYINT},
+      </if>
+      <if test="usbaAccountEnable != null" >
+        #{usbaAccountEnable,jdbcType=TINYINT},
+      </if>
+      <if test="usbaAccountLocked != null" >
+        #{usbaAccountLocked,jdbcType=TINYINT},
+      </if>
+      <if test="usbaModifyDate != null" >
+        #{usbaModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usbaCreateDate != null" >
+        #{usbaCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usbaSuperiorId != null" >
+        #{usbaSuperiorId,jdbcType=CHAR},
+      </if>
+      <if test="usbaLastActiveTime != null" >
+        #{usbaLastActiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usbaCredentialToken != null" >
+        #{usbaCredentialToken,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaCredentialIp != null" >
+        #{usbaCredentialIp,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaMail != null" >
+        #{usbaMail,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaPhone != null" >
+        #{usbaPhone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.UserBasic2" >
+    update user_basic2
+    <set >
+      <if test="depaId != null" >
+        depa_id = #{depaId,jdbcType=CHAR},
+      </if>
+      <if test="usbaAccount != null" >
+        usba_account = #{usbaAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaName != null" >
+        usba_name = #{usbaName,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaPassword != null" >
+        usba_password = #{usbaPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaFailureCount != null" >
+        usba_failure_count = #{usbaFailureCount,jdbcType=TINYINT},
+      </if>
+      <if test="usbaCredentialExpired != null" >
+        usba_credential_expired = #{usbaCredentialExpired,jdbcType=TINYINT},
+      </if>
+      <if test="usbaAccountExpired != null" >
+        usba_account_expired = #{usbaAccountExpired,jdbcType=TINYINT},
+      </if>
+      <if test="usbaAccountEnable != null" >
+        usba_account_enable = #{usbaAccountEnable,jdbcType=TINYINT},
+      </if>
+      <if test="usbaAccountLocked != null" >
+        usba_account_locked = #{usbaAccountLocked,jdbcType=TINYINT},
+      </if>
+      <if test="usbaModifyDate != null" >
+        usba_modify_date = #{usbaModifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usbaCreateDate != null" >
+        usba_create_date = #{usbaCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usbaSuperiorId != null" >
+        usba_superior_id = #{usbaSuperiorId,jdbcType=CHAR},
+      </if>
+      <if test="usbaLastActiveTime != null" >
+        usba_last_active_time = #{usbaLastActiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="usbaCredentialToken != null" >
+        usba_credential_token = #{usbaCredentialToken,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaCredentialIp != null" >
+        usba_credential_ip = #{usbaCredentialIp,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaMail != null" >
+        usba_mail = #{usbaMail,jdbcType=VARCHAR},
+      </if>
+      <if test="usbaPhone != null" >
+        usba_phone = #{usbaPhone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where usba_id = #{usbaId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.UserBasic2" >
+    update user_basic2
+    set depa_id = #{depaId,jdbcType=CHAR},
+      usba_account = #{usbaAccount,jdbcType=VARCHAR},
+      usba_name = #{usbaName,jdbcType=VARCHAR},
+      usba_password = #{usbaPassword,jdbcType=VARCHAR},
+      usba_failure_count = #{usbaFailureCount,jdbcType=TINYINT},
+      usba_credential_expired = #{usbaCredentialExpired,jdbcType=TINYINT},
+      usba_account_expired = #{usbaAccountExpired,jdbcType=TINYINT},
+      usba_account_enable = #{usbaAccountEnable,jdbcType=TINYINT},
+      usba_account_locked = #{usbaAccountLocked,jdbcType=TINYINT},
+      usba_modify_date = #{usbaModifyDate,jdbcType=TIMESTAMP},
+      usba_create_date = #{usbaCreateDate,jdbcType=TIMESTAMP},
+      usba_superior_id = #{usbaSuperiorId,jdbcType=CHAR},
+      usba_last_active_time = #{usbaLastActiveTime,jdbcType=TIMESTAMP},
+      usba_credential_token = #{usbaCredentialToken,jdbcType=VARCHAR},
+      usba_credential_ip = #{usbaCredentialIp,jdbcType=VARCHAR},
+      usba_mail = #{usbaMail,jdbcType=VARCHAR},
+      usba_phone = #{usbaPhone,jdbcType=VARCHAR}
+    where usba_id = #{usbaId,jdbcType=CHAR}
+  </update>
+  <!-- 批量更新 -->
+  <update id="bathUpdateUserBasic" parameterType="java.util.List"  >
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+    update user_basic2
+   set
+     depa_id = #{item.depaId,jdbcType=CHAR},
+      usba_account = #{item.usbaAccount,jdbcType=VARCHAR},
+      usba_name = #{item.usbaName,jdbcType=VARCHAR},
+      usba_password = #{item.usbaPassword,jdbcType=VARCHAR},
+      usba_failure_count = #{item.usbaFailureCount,jdbcType=TINYINT},
+      usba_credential_expired = #{item.usbaCredentialExpired,jdbcType=TINYINT},
+      usba_account_expired = #{item.usbaAccountExpired,jdbcType=TINYINT},
+      usba_account_enable = #{item.usbaAccountEnable,jdbcType=TINYINT},
+      usba_account_locked = #{item.usbaAccountLocked,jdbcType=TINYINT},
+      usba_modify_date = #{item.usbaModifyDate,jdbcType=TIMESTAMP},
+      usba_create_date = #{item.usbaCreateDate,jdbcType=TIMESTAMP},
+      usba_superior_id = #{item.usbaSuperiorId,jdbcType=CHAR},
+      usba_last_active_time = #{item.usbaLastActiveTime,jdbcType=TIMESTAMP},
+      usba_credential_token = #{item.usbaCredentialToken,jdbcType=VARCHAR},
+      usba_credential_ip = #{item.usbaCredentialIp,jdbcType=VARCHAR},
+      usba_mail = #{item.usbaMail,jdbcType=VARCHAR},
+      usba_phone = #{item.usbaPhone,jdbcType=VARCHAR}
+      where usba_id = #{item.usbaId,jdbcType=CHAR}
+      </foreach>
+  </update>
+</mapper>

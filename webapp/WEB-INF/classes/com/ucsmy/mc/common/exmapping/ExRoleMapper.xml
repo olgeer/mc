@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.exmapper.ExRoleMapper">
+
+	<select id="selectRoleByRoleType" resultMap="com.ucsmy.mc.common.mapper.RoleMapper.BaseResultMap">
+		SELECT 
+		<include refid="com.ucsmy.mc.common.mapper.RoleMapper.Base_Column_List"/>
+		FROM role
+	</select>
+	
+	<select id="selectRolesByRoleTypes" resultMap="com.ucsmy.mc.common.mapper.RoleMapper.BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+		<include refid="com.ucsmy.mc.common.mapper.RoleMapper.Base_Column_List"/>
+		FROM role
+		WHERE  role.role_use_status = 1
+		<if test="roleTypes != null">
+			AND role.role_type IN 
+			<foreach collection="roleTypes" item="type" index="index" open="(" close=")" separator=",">
+				${type}
+			</foreach>
+		</if>
+	</select>
+</mapper>

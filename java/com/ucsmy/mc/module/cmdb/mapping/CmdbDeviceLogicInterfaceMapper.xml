@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.module.cmdb.mapper.CmdbDeviceLogicInterfaceMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.module.cmdb.entity.CmdbDeviceLogicInterface" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="interface_name" property="interfaceName" jdbcType="VARCHAR" />
+    <result column="interface_type" property="interfaceType" jdbcType="INTEGER" />
+    <result column="interface_device_type" property="interfaceDeviceType" jdbcType="TINYINT" />
+    <result column="belongs_device_id" property="belongsDeviceId" jdbcType="INTEGER" />
+    <result column="ip_id" property="ipId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, interface_name, interface_type, interface_device_type, belongs_device_id, ip_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cmdb_device_logic_interface
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cmdb_device_logic_interface
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.module.cmdb.entity.CmdbDeviceLogicInterface" >
+    insert into cmdb_device_logic_interface (id, interface_name, interface_type, 
+      interface_device_type, belongs_device_id, ip_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{interfaceName,jdbcType=VARCHAR}, #{interfaceType,jdbcType=INTEGER}, 
+      #{interfaceDeviceType,jdbcType=TINYINT}, #{belongsDeviceId,jdbcType=INTEGER}, #{ipId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.module.cmdb.entity.CmdbDeviceLogicInterface" >
+    insert into cmdb_device_logic_interface
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="interfaceName != null" >
+        interface_name,
+      </if>
+      <if test="interfaceType != null" >
+        interface_type,
+      </if>
+      <if test="interfaceDeviceType != null" >
+        interface_device_type,
+      </if>
+      <if test="belongsDeviceId != null" >
+        belongs_device_id,
+      </if>
+      <if test="ipId != null" >
+        ip_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceName != null" >
+        #{interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceType != null" >
+        #{interfaceType,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceDeviceType != null" >
+        #{interfaceDeviceType,jdbcType=TINYINT},
+      </if>
+      <if test="belongsDeviceId != null" >
+        #{belongsDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="ipId != null" >
+        #{ipId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.module.cmdb.entity.CmdbDeviceLogicInterface" >
+    update cmdb_device_logic_interface
+    <set >
+      <if test="interfaceName != null" >
+        interface_name = #{interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceType != null" >
+        interface_type = #{interfaceType,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceDeviceType != null" >
+        interface_device_type = #{interfaceDeviceType,jdbcType=TINYINT},
+      </if>
+      <if test="belongsDeviceId != null" >
+        belongs_device_id = #{belongsDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="ipId != null" >
+        ip_id = #{ipId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.module.cmdb.entity.CmdbDeviceLogicInterface" >
+    update cmdb_device_logic_interface
+    set interface_name = #{interfaceName,jdbcType=VARCHAR},
+      interface_type = #{interfaceType,jdbcType=INTEGER},
+      interface_device_type = #{interfaceDeviceType,jdbcType=TINYINT},
+      belongs_device_id = #{belongsDeviceId,jdbcType=INTEGER},
+      ip_id = #{ipId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectByIpId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cmdb_device_logic_interface
+    where ip_id = #{ip_id,jdbcType=INTEGER}
+  </select>
+</mapper>

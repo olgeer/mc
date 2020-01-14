@@ -1,0 +1,299 @@
+[
+    {
+        "icon": "assets/custom/img/device/server.png",
+        "name": "基础架构",
+        "devices": [
+        	{
+                "url": "configuration/mainframe/list",
+                "iconClass" : "fa fa-server",
+                "icon": "assets/custom/img/device/server.png",
+                "name": "主机",
+                "count": 2,
+                "desc": "主机描述"
+            },
+            {
+            	"url": "configuration/chiefplatform/list",
+                "iconClass" : "fa fa-building-o",
+                "icon": "assets/custom/img/device/group.png",
+                "name": "项目",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+            	"url": "configuration/platform/list",
+                "iconClass" : "fa fa-dashboard",
+                "icon": "assets/custom/img/device/virtualmachine.png",
+                "name": "平台",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+            	"url": "configuration/ostype/list",
+                "iconClass" : "fa fa-gears",
+                "icon": "assets/custom/img/device/application.png",
+                "name": "系统",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+            	"url": "configuration/device/list",
+                "iconClass" : "fa fa-book",
+                "icon": "assets/custom/img/device/cluster.png",
+                "name": "设备",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+            	"url": "configuration/room/list",
+                "iconClass" : "fa fa-sitemap",
+                "icon": "assets/custom/img/device/rack.png",
+                "name": "机房",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+            	"url": "configuration/ippool/list",
+                "iconClass" : "fa fa-th",
+                "icon": "assets/custom/img/device/interface.png",
+                "name": "IP池",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+            	"url": "configuration/application/list",
+                "iconClass" : "fa fa-archive",
+                "icon": "assets/custom/img/device/webapp.png",
+                "name": "应用",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/rack.png",
+                "name": "Rack",
+                "count": 0,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/enclosure.png",
+                "name": "Enclosure",
+                "count": 0,
+                "desc": "描述 描述"
+            },
+            {
+                "icon": "assets/custom/img/device/switch.png",
+                "name": "网络设备",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/storageArea.png",
+                "name": "Storage System",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/storageArea.png",
+                "name": "SAN Switch",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/nas.png",
+                "name": "NAS",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/tapelibrary.png",
+                "name": "Tape Library",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/tapelibrary.png",
+                "name": "Tape Library",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/power-connection.png",
+                "name": "Power Connection",
+                "count": 1,
+                "desc": "描述"
+            }
+        ]
+    },
+    {
+        "icon": "assets/custom/img/device/hypervisor-sw.png",
+        "name": "Virtualization",
+        "devices": [
+            {
+                "icon": "assets/custom/img/device/cluster.png",
+                "name": "Farm",
+                "count": 0,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/hypervisor.png",
+                "name": "Hypervisor",
+                "count": 0,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/virtualmachine.png",
+                "name": "Virtual Machine",
+                "count": 0,
+                "desc": "描述"
+            }
+        ]
+    },
+    {
+        "icon": "assets/custom/img/device/team.png",
+        "name": "End user devices",
+        "devices": [
+            {
+                "icon": "assets/custom/img/device/laptop.png",
+                "name": "PC",
+                "count": 0,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/phone.png",
+                "name": "Phone",
+                "count": 0,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/mobile-phone.png",
+                "name": "移动电话",
+                "count": 0,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/tablet.png",
+                "name": "Tablet",
+                "count": 0,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/printer.png",
+                "name": "打印机",
+                "count": 0,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/peripherals.png",
+                "name": "Peripheral",
+                "count": 0,
+                "desc": "描述"
+            }
+        ]
+    },
+    {
+        "icon": "assets/custom/img/device/application.png",
+        "name": "软件和应用程序",
+        "devices": [
+            {    "icon": "assets/custom/img/device/middleware.png",
+                "name": "防火墙",
+                "count": 3,
+                "desc": "防火墙"
+            },
+            {
+                "icon": "assets/custom/img/device/database.png",
+                "name": "数据库",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/webserver.png",
+                "name": "Web server",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/application.png",
+                "name": "PC Software",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/application.png",
+                "name": "Other Software",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/database-schema.png",
+                "name": "Database Schema",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/webapp.png",
+                "name": "Web Application",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/patch.png",
+                "name": "补丁",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/licence.png",
+                "name": "Licence",
+                "count": 1,
+                "desc": "描述"
+            }
+        ]
+    },
+    {
+        "icon": "assets/custom/img/device/subnet.png",
+        "name": "杂项",
+        "devices": [
+            {
+                "icon": "assets/custom/img/device/interface.png",
+                "name": "网络接口",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/subnet.png",
+                "name": "子网",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/vlan.png",
+                "name": "VLAN",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/volume.png",
+                "name": "Logical Volume",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/business-process.png",
+                "name": "业务流程",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/solution.png",
+                "name": "应用方案",
+                "count": 1,
+                "desc": "描述"
+            },
+            {
+                "icon": "assets/custom/img/device/group.png",
+                "name": "组",
+                "count": 1,
+                "desc": "描述"
+            }
+        ]
+    }
+]

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ucsmy.mc.common.mapper.OrglistTempMapper" >
+  <resultMap id="BaseResultMap" type="com.ucsmy.mc.common.entity.OrglistTemp" >
+    <id column="dpId" property="dpid" jdbcType="VARCHAR" />
+    <result column="dpName" property="dpname" jdbcType="VARCHAR" />
+    <result column="parentDpId" property="parentdpid" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dpId, dpName, parentDpId, version
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from orglist_temp
+   
+  </select>
+  <select id="getDepartmentByDepaName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from orglist_temp
+    where dpName = #{depaName,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from orglist_temp
+    where dpId = #{dpid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from orglist_temp
+    where dpId = #{dpid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ucsmy.mc.common.entity.OrglistTemp" >
+    insert ignore into orglist_temp (dpId, dpName, parentDpId, 
+      version)
+    values (#{dpid,jdbcType=VARCHAR}, #{dpname,jdbcType=VARCHAR}, #{parentdpid,jdbcType=VARCHAR}, 
+      #{version,jdbcType=TINYINT})
+  </insert>
+  <!-- 批量插入操作 -->
+	 <insert id ="bathInsertOrgList" parameterType="java.util.List" >
+             insert ignore into orglist_temp
+            (dpId, dpName, parentDpId, 
+      version)
+             values
+             <foreach collection ="list" item="orglist" index="index" separator=",">
+               (
+                #{orglist.dpid,jdbcType=VARCHAR}, #{orglist.dpname,jdbcType=VARCHAR}, #{orglist.parentdpid,jdbcType=VARCHAR}, 
+                #{orglist.version,jdbcType=TINYINT}
+             )
+            </foreach >
+            
+     </insert >
+  <insert id="insertSelective" parameterType="com.ucsmy.mc.common.entity.OrglistTemp" >
+    insert into orglist_temp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dpid != null" >
+        dpId,
+      </if>
+      <if test="dpname != null" >
+        dpName,
+      </if>
+      <if test="parentdpid != null" >
+        parentDpId,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dpid != null" >
+        #{dpid,jdbcType=VARCHAR},
+      </if>
+      <if test="dpname != null" >
+        #{dpname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentdpid != null" >
+        #{parentdpid,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ucsmy.mc.common.entity.OrglistTemp" >
+    update orglist_temp
+    <set >
+      <if test="dpname != null" >
+        dpName = #{dpname,jdbcType=VARCHAR},
+      </if>
+      <if test="parentdpid != null" >
+        parentDpId = #{parentdpid,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=TINYINT},
+      </if>
+    </set>
+    where dpId = #{dpid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ucsmy.mc.common.entity.OrglistTemp" >
+    update orglist_temp
+    set dpName = #{dpname,jdbcType=VARCHAR},
+      parentDpId = #{parentdpid,jdbcType=VARCHAR},
+      version = #{version,jdbcType=TINYINT}
+    where dpId = #{dpid,jdbcType=VARCHAR}
+  </update>
+</mapper>
